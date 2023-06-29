@@ -17,6 +17,13 @@ namespace MDASTDotNet.Conversions
                     root.Children.Add(thematicBreak);
                     continue;
                 }
+
+                var header = MDASTHeadingNode.TryParse(line);
+                if (header != null)
+                {
+                    root.Children.Add(header);
+                    continue;
+                }
             }
 
             return root;

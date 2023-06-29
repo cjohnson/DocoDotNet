@@ -56,6 +56,12 @@ namespace MDASTDotNet.LeafBlocks
 					}
 
 					++headerLevel;
+
+					if (headerLevel > 6)
+					{
+						return null;
+					}
+						
 					++i;
 					continue;
 				}
