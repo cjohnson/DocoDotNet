@@ -1,6 +1,7 @@
-﻿using MDASTDotNet.Extensions;
+﻿using Newtonsoft.Json;
+
+using MDASTDotNet.Extensions;
 using MDASTDotNet.LeafBlocks;
-using Newtonsoft.Json;
 
 namespace MDASTDotNet
 {
@@ -36,7 +37,7 @@ namespace MDASTDotNet
 
 			foreach (var line in markdown.Lines())
 			{
-                var thematicBreak = MDASTThematicBreakParser.TryParse(line);
+                var thematicBreak = MDASTThematicBreakNode.TryParse(line);
 				if (thematicBreak != null)
 				{
 					root.Children.Add(thematicBreak);
