@@ -9,10 +9,14 @@ namespace MDASTDotNet.LeafBlocks
 		[JsonProperty("level")]
 		public int Level { get; set; }
 
+		[JsonProperty("text")]
+		public MDASTTextNode? Text { get; set; }
+
 		[JsonConstructor]
-		public MDASTHeadingNode(int level) : base("heading")
+		public MDASTHeadingNode(int level, MDASTTextNode? text) : base("heading")
 		{
 			this.Level = level;
+			this.Text = text;
 
 			if (level < 0)
 			{
@@ -78,7 +82,15 @@ namespace MDASTDotNet.LeafBlocks
 
 			} while (i < target.Length);
 
-			return new MDASTHeadingNode(headerLevel);
+			if (parsingState == ParsingState.HeadingDeclaration)
+			{
+				return new MDASTHeadingNode(headerLevel, null);
+			}
+
+			var textContent = target.Substring(i + 1, target.Length - i - 1);
+			var text = new MDASTTextNode(textContent);
+
+			return new MDASTHeadingNode(headerLevel, text);
 		}
 	}
 }
