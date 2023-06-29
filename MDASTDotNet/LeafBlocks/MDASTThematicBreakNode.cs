@@ -1,7 +1,9 @@
-﻿using System.Diagnostics;
+﻿using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace MDASTDotNet.LeafBlocks
 {
+	[JsonObject(MemberSerialization = MemberSerialization.OptIn)]
 	public class MDASTThematicBreakNode : MDASTNode
 	{
 		public MDASTThematicBreakNode() : base("thematicBreak")
