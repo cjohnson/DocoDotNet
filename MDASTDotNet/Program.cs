@@ -9,7 +9,7 @@ namespace MDASTDotNet
 		static void Main(string[] args)
 		{
 			var parser = new MDASTParser();
-			var rootNode = parser.Parse("####### Level One Header");
+			var rootNode = parser.Parse("### Level One Header\nSome garbage paragraph");
 
             Console.WriteLine(JsonConvert.SerializeObject(rootNode, Formatting.Indented));
         }

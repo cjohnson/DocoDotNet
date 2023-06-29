@@ -24,6 +24,10 @@ namespace MDASTDotNet.Conversions
                     root.Children.Add(header);
                     continue;
                 }
+
+                // Default to Text Node
+                var text = new MDASTTextNode(line);
+                root.Children.Add(text);
             }
 
             return root;
