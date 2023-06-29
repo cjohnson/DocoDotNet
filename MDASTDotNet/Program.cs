@@ -5,18 +5,6 @@ using MDASTDotNet.LeafBlocks;
 
 namespace MDASTDotNet
 {
-	[JsonObject(MemberSerialization.OptIn)]
-	public class MDASTRootNode : MDASTNode
-	{
-		[JsonProperty("children")]
-		public List<MDASTNode> Children { get; set; }
-
-		public MDASTRootNode() : base("root")
-		{
-			Children = new List<MDASTNode>();
-		}
-	}
-
 	internal class MDASTParser
 	{
 		public MDASTRootNode Parse(string markdown)
