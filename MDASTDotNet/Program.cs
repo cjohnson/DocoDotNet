@@ -6,18 +6,6 @@ using MDASTDotNet.LeafBlocks;
 namespace MDASTDotNet
 {
 	[JsonObject(MemberSerialization.OptIn)]
-	public abstract class MDASTNode
-	{
-		[JsonProperty("type")]
-		public string Type { get; set; }
-
-		public MDASTNode(string type)
-		{
-			Type = type;
-		}
-	}
-
-	[JsonObject(MemberSerialization.OptIn)]
 	public class MDASTRootNode : MDASTNode
 	{
 		[JsonProperty("children")]
