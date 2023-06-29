@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 
 namespace MDASTDotNet.Extensions
 {
 	internal static class StringExtensions
 	{
-		public static List<String> Lines(this string target)
+		[DebuggerStepThrough]
+		internal static List<String> Lines(this string target)
 		{
 			var lines = new List<String>();
 

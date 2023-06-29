@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
-using System.Diagnostics;
+
+using MDASTDotNet.Extensions;
 
 namespace MDASTDotNet.LeafBlocks
 {
@@ -8,22 +9,19 @@ namespace MDASTDotNet.LeafBlocks
 	{
 		public MDASTThematicBreakNode() : base("thematicBreak")
 		{ }
-	}
 
-	internal enum ParsingState
-	{
-		Indentation,
-		MatchCharacter,
-	}
+		internal enum ParsingState
+		{
+			Indentation,
+			MatchCharacter,
+		}
 
-	internal static class MDASTThematicBreakParser
-	{
 		internal static MDASTThematicBreakNode? TryParse(string target)
 		{
 			var parsingState = ParsingState.Indentation;
 
 			var indentationCount = 0;
-			
+
 			char? selectedCharacter = null;
 			var selectedCharacterCount = 0;
 
@@ -87,20 +85,6 @@ namespace MDASTDotNet.LeafBlocks
 			}
 
 			return new MDASTThematicBreakNode();
-		}
-
-		[DebuggerStepThrough]
-		private static bool MatchesAny(this char c, params char[] tests)
-		{
-			foreach (var test in tests)
-			{
-				if (c == test)
-				{
-					return true;
-				}
-			}
-
-			return false;
 		}
 	}
 }
