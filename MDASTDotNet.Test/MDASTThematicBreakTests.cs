@@ -376,4 +376,30 @@ public class MDASTThematicBreakTests
 
 		Assert.AreEqual(expected, actual);
 	}
+
+	/// <summary>
+	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see>: Implementation of
+	/// <see href="https://spec.commonmark.org/0.30/#example-61">Thematic Break Example 61</see>
+	/// </summary>
+	[TestMethod]
+	public void ThematicBreaksInListItemsRequireDifferentCharacterThanTheListBullet()
+	{
+		var parser = new MDASTParser();
+
+		var actual = parser.Parse(
+			"- Foo\n" +
+			"- * * *\n"
+		);
+
+		// This will fail eventually when MDASTListNode is added. When this fails due to this reason,
+		// simply change the output expectation to use MDASTListNode (or the theoretical equivalent).
+		var expected = new MDASTRootNode();
+		expected.Children.AddRange(new List<MDASTNode>
+		{
+			new MDASTTextNode("- Foo"), // This will become list -> list item
+			new MDASTTextNode("- * * *\n"), // This will become list -> list item -> thematic break
+		});
+
+		Assert.AreEqual(expected, actual);
+	}
 }
