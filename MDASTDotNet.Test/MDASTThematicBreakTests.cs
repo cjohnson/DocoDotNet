@@ -138,4 +138,28 @@ public class MDASTThematicBreakTests
 
 		Assert.AreEqual(expected, actual);
 	}
+
+	/// <summary>
+	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see>: Implementation of
+	/// <see href="https://spec.commonmark.org/0.30/#example-49">Thematic Break Example 49</see>
+	/// </summary>
+	[TestMethod]
+	public void TextWithFollowingLineWithFourSpacesIsTooManyForThematicBreak()
+	{
+		var parser = new MDASTParser();
+
+		var actual = parser.Parse(
+			"Foo\n" +
+			"    ***"
+		);
+
+		var expected = new MDASTRootNode();
+		expected.Children.AddRange(new List<MDASTNode>
+		{
+			new MDASTTextNode("Foo"),
+			new MDASTTextNode("    ***"),
+		});
+
+		Assert.AreEqual(expected, actual);
+	}
 }
