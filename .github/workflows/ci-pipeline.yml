@@ -13,5 +13,5 @@ jobs:
             - name: setup-msbuild
               uses: microsoft/setup-msbuild@v1
               
-            - name: Run a one-line script
-              run:  '& "$(vswhere -property installationPath)\Common7\IDE\MSTest.exe" /help'
+            - name: Run Tests
+              run:  '& "$(vswhere -property installationPath)\Common7\IDE\MSTest.exe" /test:*'
