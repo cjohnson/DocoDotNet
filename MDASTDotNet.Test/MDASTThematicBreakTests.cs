@@ -348,4 +348,32 @@ public class MDASTThematicBreakTests
 
 		Assert.AreEqual(expected, actual);
 	}
+
+	/// <summary>
+	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see>: Implementation of
+	/// <see href="https://spec.commonmark.org/0.30/#example-60">Thematic Break Example 60</see>
+	/// </summary>
+	[TestMethod]
+	public void ThematicBreaksTakePrecedentOverLists()
+	{
+		var parser = new MDASTParser();
+
+		var actual = parser.Parse(
+			"* Foo\n" +
+			"* * *\n" +
+			"* Bar"
+		);
+
+		// This will fail eventually when MDASTListNode is added. When this fails due to this reason,
+		// simply change the output expectation to use MDASTListNode (or the theoretical equivalent).
+		var expected = new MDASTRootNode();
+		expected.Children.AddRange(new List<MDASTNode>
+		{
+			new MDASTTextNode("* Foo"),
+			new MDASTThematicBreakNode(),
+			new MDASTTextNode("* Bar"),
+		});
+
+		Assert.AreEqual(expected, actual);
+	}
 }
