@@ -16,6 +16,16 @@ namespace MDASTDotNet.LeafBlocks
 			MatchCharacter,
 		}
 
+		public override bool Equals(object? obj)
+		{
+			return obj is MDASTThematicBreakNode;
+		}
+
+		public override int GetHashCode()
+		{
+			return Type.GetHashCode();
+		}
+
 		internal static MDASTThematicBreakNode? TryParse(string target)
 		{
 			var parsingState = ParsingState.Indentation;
