@@ -161,4 +161,33 @@ public class MDASTThematicBreakTests
 
 		Assert.AreEqual(expected, actual);
 	}
+
+	/// <summary>
+	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see>: Implementation of
+	/// <see href="https://spec.commonmark.org/0.30/#example-51">Thematic Break Example 51</see>,
+	/// <see href="https://spec.commonmark.org/0.30/#example-52">Thematic Break Example 52</see>,
+	/// and
+	/// <see href="https://spec.commonmark.org/0.30/#example-53">Thematic Break Example 53</see>
+	/// </summary>
+	[TestMethod]
+	public void SpacesAndTabsAreAllowedBetweenTheCharactersForThematicBreak()
+	{
+		var parser = new MDASTParser();
+
+		var actual = parser.Parse(
+			" - - -\n" +
+			" **  * ** * ** * **\n" +
+			"-     -     -     -"
+		);
+
+		var expected = new MDASTRootNode();
+		expected.Children.AddRange(new List<MDASTNode>
+		{
+			new MDASTThematicBreakNode(),
+			new MDASTThematicBreakNode(),
+			new MDASTThematicBreakNode(),
+		});
+
+		Assert.AreEqual(expected, actual);
+	}
 }
