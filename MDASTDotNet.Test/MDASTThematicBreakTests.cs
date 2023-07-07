@@ -116,6 +116,8 @@ public class MDASTThematicBreakTests
 	/// <summary>
 	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see>: Implementation & Extension of
 	/// <see href="https://spec.commonmark.org/0.30/#example-48">Thematic Break Example 48</see>
+	/// and
+	/// <see href="https://spec.commonmark.org/0.30/#example-49">Thematic Break Example 49</see>
 	/// </summary>
 	[TestMethod]
 	public void FourOrMoreSpacesIsTooManyForThematicBreak()
@@ -123,6 +125,7 @@ public class MDASTThematicBreakTests
 		var parser = new MDASTParser();
 
 		var actual = parser.Parse(
+			"Foo\n" +
 			"    ***\n" +
 			"     ***\n" +
 			"      ***"	
@@ -131,33 +134,10 @@ public class MDASTThematicBreakTests
 		var expected = new MDASTRootNode();
 		expected.Children.AddRange(new List<MDASTNode>
 		{
+			new MDASTTextNode("Foo"),
 			new MDASTTextNode("    ***"),
 			new MDASTTextNode("     ***"),
 			new MDASTTextNode("      ***"),
-		});
-
-		Assert.AreEqual(expected, actual);
-	}
-
-	/// <summary>
-	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see>: Implementation of
-	/// <see href="https://spec.commonmark.org/0.30/#example-49">Thematic Break Example 49</see>
-	/// </summary>
-	[TestMethod]
-	public void TextWithFollowingLineWithFourSpacesIsTooManyForThematicBreak()
-	{
-		var parser = new MDASTParser();
-
-		var actual = parser.Parse(
-			"Foo\n" +
-			"    ***"
-		);
-
-		var expected = new MDASTRootNode();
-		expected.Children.AddRange(new List<MDASTNode>
-		{
-			new MDASTTextNode("Foo"),
-			new MDASTTextNode("    ***"),
 		});
 
 		Assert.AreEqual(expected, actual);
