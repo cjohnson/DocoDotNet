@@ -31,20 +31,44 @@ namespace MDASTDotNet.LeafBlocks
 
 		internal enum ParsingState
 		{
+			Indentation,
 			HeadingDeclaration,
 			RequiredSpaceOrTab,
 		}
 
 		internal static MDASTHeadingNode? TryParse(string target)
 		{
-			var parsingState = ParsingState.HeadingDeclaration;
-
+			var parsingState = ParsingState.Indentation;
+			var indentationCount = 0;
 			var headerLevel = 0;
 
 			int i = 0;
 			do
 			{
 				char current = target[i];
+
+				if (parsingState == ParsingState.Indentation)
+				{
+					if (current == '#')
+					{
+						parsingState = ParsingState.HeadingDeclaration;
+						continue;
+					}
+
+					if (!Char.IsWhiteSpace(current))
+					{
+						return null;
+					}
+
+					++indentationCount;
+					if (indentationCount > 3)
+					{
+						return null;
+					}
+
+					++i;
+					continue;
+				}
 
 				if (parsingState == ParsingState.HeadingDeclaration)
 				{
