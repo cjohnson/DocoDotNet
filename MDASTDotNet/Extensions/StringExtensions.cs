@@ -4,7 +4,7 @@ namespace MDASTDotNet.Extensions
 {
 	public static class StringExtensions
 	{
-		//[DebuggerStepThrough]
+		[DebuggerStepThrough]
 		public static List<String> Lines(this string target)
 		{
 			var lines = new List<String>();
