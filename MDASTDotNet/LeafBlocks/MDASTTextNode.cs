@@ -12,5 +12,16 @@ namespace MDASTDotNet.LeafBlocks
 		{
 			Content = content;
 		}
+
+		public override bool Equals(object? obj)
+		{
+			return obj is MDASTTextNode node &&
+				   Content == node.Content;
+		}
+
+		public override int GetHashCode()
+		{
+			return HashCode.Combine(Type, Content);
+		}
 	}
 }
