@@ -162,4 +162,23 @@ public class MDASTThematicBreakTests
 
 		Assert.AreEqual(expected, actual);
 	}
+
+	/// <summary>
+	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see>: Implementation of
+	/// <see href="https://spec.commonmark.org/0.30/#example-50">Thematic Break Example 50</see>
+	/// </summary>
+	[TestMethod]
+	public void MoreThanThreeValidCharactersMayBeUsedForThematicBreak()
+	{
+		var parser = new MDASTParser();
+
+		var actual = parser.Parse(
+			"____________________________"
+		);
+
+		var expected = new MDASTRootNode();
+		expected.Children.Add(new MDASTThematicBreakNode());
+
+		Assert.AreEqual(expected, actual);
+	}
 }
