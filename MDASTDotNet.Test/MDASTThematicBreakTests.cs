@@ -397,7 +397,7 @@ public class MDASTThematicBreakTests
 		expected.Children.AddRange(new List<MDASTNode>
 		{
 			new MDASTTextNode("- Foo"), // This will become list -> list item
-			new MDASTTextNode("- * * *\n"), // This will become list -> list item -> thematic break
+			new MDASTTextNode("- * * *"), // This will become list -> list item -> thematic break
 		});
 
 		Assert.AreEqual(expected, actual);
