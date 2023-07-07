@@ -245,4 +245,25 @@ public class MDASTThematicBreakTests
 
 		Assert.AreEqual(expected, actual);
 	}
+
+	/// <summary>
+	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see>: Implementation of
+	/// <see href="https://spec.commonmark.org/0.30/#example-56">Thematic Break Example 56</see>
+	/// </summary>
+	[TestMethod]
+	public void CharacterChoiceShouldBeConsistentForThematicBreak()
+	{
+		var parser = new MDASTParser();
+
+		var actual = parser.Parse(
+			" *-*"
+		);
+
+		// This will fail eventually when MDASTEmphasisNode is added. When this fails due to this reason,
+		// simply change the output expectation to use MDASTEmphasisNode (or the theoretical equivalent).
+		var expected = new MDASTRootNode();
+		expected.Children.Add(new MDASTTextNode(" *-*"));
+
+		Assert.AreEqual(expected, actual);
+	}
 }
