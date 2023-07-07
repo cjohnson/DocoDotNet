@@ -251,7 +251,7 @@ public class MDASTThematicBreakTests
 	/// <see href="https://spec.commonmark.org/0.30/#example-56">Thematic Break Example 56</see>
 	/// </summary>
 	[TestMethod]
-	public void CharacterChoiceShouldBeConsistentForThematicBreak()
+	public void CharacterChoiceShouldBeConsistentForThematicBreaks()
 	{
 		var parser = new MDASTParser();
 
@@ -263,6 +263,34 @@ public class MDASTThematicBreakTests
 		// simply change the output expectation to use MDASTEmphasisNode (or the theoretical equivalent).
 		var expected = new MDASTRootNode();
 		expected.Children.Add(new MDASTTextNode(" *-*"));
+
+		Assert.AreEqual(expected, actual);
+	}
+
+	/// <summary>
+	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see>: Implementation of
+	/// <see href="https://spec.commonmark.org/0.30/#example-57">Thematic Break Example 57</see>
+	/// </summary>
+	[TestMethod]
+	public void BlankLinesBeforeAndAfterAreNotNeededForThematicBreaks()
+	{
+		var parser = new MDASTParser();
+
+		var actual = parser.Parse(
+			"- foo\n" +
+			"***\n" +
+			"- bar"
+		);
+
+		// This will fail eventually when MDASTListNode is added. When this fails due to this reason,
+		// simply change the output expectation to use MDASTListNode (or the theoretical equivalent).
+		var expected = new MDASTRootNode();
+		expected.Children.AddRange(new List<MDASTNode>
+		{
+			new MDASTTextNode("- foo"),
+			new MDASTThematicBreakNode(),
+			new MDASTTextNode("- bar"),
+		});
 
 		Assert.AreEqual(expected, actual);
 	}
