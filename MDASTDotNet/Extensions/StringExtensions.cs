@@ -2,10 +2,10 @@
 
 namespace MDASTDotNet.Extensions
 {
-	internal static class StringExtensions
+	public static class StringExtensions
 	{
-		[DebuggerStepThrough]
-		internal static List<String> Lines(this string target)
+		//[DebuggerStepThrough]
+		public static List<String> Lines(this string target)
 		{
 			var lines = new List<String>();
 
@@ -25,7 +25,10 @@ namespace MDASTDotNet.Extensions
 				currentLine += current;
 			}
 
-			lines.Add(currentLine);
+			if (!String.IsNullOrEmpty(currentLine))
+			{
+				lines.Add(currentLine);
+			}
 
 			return lines;
 		}
