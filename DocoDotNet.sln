@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33712.159
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MDASTDotNet", "MDASTDotNet\MDASTDotNet.csproj", "{2A8FB503-081D-40BF-9F14-6F00F0582B0E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDASTDotNet", "MDASTDotNet\MDASTDotNet.csproj", "{2A8FB503-081D-40BF-9F14-6F00F0582B0E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MDASTDotNet.Test", "MDASTDotNet.Test\MDASTDotNet.Test.csproj", "{7E195E05-34E1-404E-A39B-C338CC415473}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{2A8FB503-081D-40BF-9F14-6F00F0582B0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A8FB503-081D-40BF-9F14-6F00F0582B0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A8FB503-081D-40BF-9F14-6F00F0582B0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E195E05-34E1-404E-A39B-C338CC415473}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E195E05-34E1-404E-A39B-C338CC415473}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E195E05-34E1-404E-A39B-C338CC415473}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E195E05-34E1-404E-A39B-C338CC415473}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
