@@ -51,6 +51,8 @@ public class MDASTThematicBreakTests
 			"==="
 		);
 
+		// This will fail eventually when MDASTTextNode parsing is fixed. The parser will read the text as one
+		// all-inclusive MDASTTextNode, with text "+++\n===".
 		var expected = new MDASTRootNode();
 		expected.Children.AddRange(new List<MDASTNode>
 		{
@@ -76,6 +78,8 @@ public class MDASTThematicBreakTests
 			"__"
 		);
 
+		// This will fail eventually when MDASTTextNode parsing is fixed. The parser will read the text as one
+		// all-inclusive MDASTTextNode, as https://spec.commonmark.org/0.30/#example-46 shows.
 		var expected = new MDASTRootNode();
 		expected.Children.AddRange(new List<MDASTNode>
 		{
@@ -131,6 +135,8 @@ public class MDASTThematicBreakTests
 			"      ***"	
 		);
 
+		// This will fail eventually when MDASTTextNode parsing is fixed. The parser will read the text as one
+		// all-inclusive MDASTTextNode, as https://spec.commonmark.org/0.30/#example-49 shows.
 		var expected = new MDASTRootNode();
 		expected.Children.AddRange(new List<MDASTNode>
 		{
@@ -219,10 +225,14 @@ public class MDASTThematicBreakTests
 	{
 		var parser = new MDASTParser();
 
+		// This will fail eventually when MDASTTextNode parsing is fixed. Uncommenting the commented lines
+		// will fix the issue, since it will be intended that they are separate lines.
 		var actual = parser.Parse(
 			"_ _ _ _ a\n" +
+			/*"\n" +*/
 			"a------\n" +
-			"---a---\n"
+			/*"\n" +*/
+			"---a---\n" 
 		);
 
 		var expected = new MDASTRootNode();
