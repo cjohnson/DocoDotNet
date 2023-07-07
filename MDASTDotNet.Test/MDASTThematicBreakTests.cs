@@ -320,4 +320,32 @@ public class MDASTThematicBreakTests
 
 		Assert.AreEqual(expected, actual);
 	}
+
+	/// <summary>
+	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see>: Implementation of
+	/// <see href="https://spec.commonmark.org/0.30/#example-59">Thematic Break Example 59</see>
+	/// </summary>
+	[TestMethod]
+	public void SetextHeadingsTakePrecedentOverThematicBreaks()
+	{
+		var parser = new MDASTParser();
+
+		var actual = parser.Parse(
+			"Foo\n" +
+			"---\n" +
+			"bar"
+		);
+
+		// This will fail eventually when Setext Header functionality is added. When this fails due
+		// to this reason, simply change the output expectation to use MDASTHeadingNode.
+		var expected = new MDASTRootNode();
+		expected.Children.AddRange(new List<MDASTNode>
+		{
+			new MDASTTextNode("Foo"),
+			new MDASTThematicBreakNode(),
+			new MDASTTextNode("bar"),
+		});
+
+		Assert.AreEqual(expected, actual);
+	}
 }
