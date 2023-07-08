@@ -1,11 +1,10 @@
-﻿using MDASTDotNet.Extensions;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Text.RegularExpressions;
 
 namespace MDASTDotNet.LeafBlocks
 {
 	[JsonObject(MemberSerialization.OptIn)]
-	public class MDASTHeadingNode : MDASTNode
+	public partial class MDASTHeadingNode : MDASTNode
 	{
 		[JsonProperty("level")]
 		public int Level { get; set; }
@@ -16,8 +15,8 @@ namespace MDASTDotNet.LeafBlocks
 		[JsonConstructor]
 		public MDASTHeadingNode(int level, MDASTTextNode? text) : base("heading")
 		{
-			this.Level = level;
-			this.Text = text;
+			Level = level;
+			Text = text;
 
 			if (level < 0)
 			{
@@ -49,9 +48,12 @@ namespace MDASTDotNet.LeafBlocks
 			RequiredSpaceOrTab,
 		}
 
+		[GeneratedRegex("^(?: |\t){0,3}(#{1,6})(?: |\t)+(.*?)(?: |\t)*$", RegexOptions.Multiline)]
+		internal static partial Regex HeadingRegex();
+
 		internal static MDASTHeadingNode? TryParse(string target)
 		{
-			var headingRegex = new Regex("^(?: |\t){0,3}(#{1,6})(?: |\t)+(.*?)(?: |\t)*$", RegexOptions.Multiline);
+			var headingRegex = HeadingRegex();
 
 			var match = headingRegex.Match(target);
 			if (!match.Success)
