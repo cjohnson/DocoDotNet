@@ -1,5 +1,6 @@
 ﻿using MDASTDotNet.Extensions;
 using Newtonsoft.Json;
+using System.Text.RegularExpressions;
 
 namespace MDASTDotNet.LeafBlocks
 {
@@ -50,88 +51,18 @@ namespace MDASTDotNet.LeafBlocks
 
 		internal static MDASTHeadingNode? TryParse(string target)
 		{
-			var parsingState = ParsingState.Indentation;
-			var indentationCount = 0;
-			var headerLevel = 0;
+			var headingRegex = new Regex("^(?: |\t){0,3}(#{1,6})(?: |\t)+(.*?)(?: |\t)*$", RegexOptions.Multiline);
 
-			if (target[0] == '\\')
+			var match = headingRegex.Match(target);
+			if (!match.Success)
 			{
 				return null;
 			}
 
-			int i = 0;
-			do
-			{
-				char current = target[i];
+			var level = match.Groups[1].Value.Length;
+			var text = new MDASTTextNode(match.Groups[2].Value);
 
-				if (parsingState == ParsingState.Indentation)
-				{
-					if (current == '#')
-					{
-						parsingState = ParsingState.HeadingDeclaration;
-						continue;
-					}
-
-					if (!Char.IsWhiteSpace(current))
-					{
-						return null;
-					}
-
-					++indentationCount;
-					if (indentationCount > 3)
-					{
-						return null;
-					}
-
-					++i;
-					continue;
-				}
-
-				if (parsingState == ParsingState.HeadingDeclaration)
-				{
-					if (current.MatchesAny(' ', '\t'))
-					{
-						parsingState = ParsingState.RequiredSpaceOrTab;
-						continue;
-					}
-
-					if (current != '#')
-					{
-						return null;
-					}
-
-					++headerLevel;
-
-					if (headerLevel > 6)
-					{
-						return null;
-					}
-						
-					++i;
-					continue;
-				}
-
-				if (parsingState == ParsingState.RequiredSpaceOrTab)
-				{
-					if (!current.MatchesAny(' ', '\t'))
-					{
-						return null;
-					}
-
-					break;
-				}
-
-			} while (i < target.Length);
-
-			if (parsingState == ParsingState.HeadingDeclaration)
-			{
-				return new MDASTHeadingNode(headerLevel, null);
-			}
-
-			var textContent = target.Substring(i + 1, target.Length - i - 1);
-			var text = new MDASTTextNode(textContent);
-
-			return new MDASTHeadingNode(headerLevel, text);
+			return new MDASTHeadingNode(level, text);
 		}
 	}
 }
