@@ -171,6 +171,8 @@ public class MDASTHeadingTests
 	/// <summary>
 	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see>: Implementation of
 	/// <see href="https://spec.commonmark.org/0.30/#example-69">Heading Example 69</see>
+	/// and
+	/// <see href="https://spec.commonmark.org/0.30/#example-70">Heading Example 70</see>
 	/// </summary>
 	[TestMethod]
 	public void FourSpacesOfIndentationIsTooMany()
@@ -178,11 +180,18 @@ public class MDASTHeadingTests
 		var parser = new MDASTParser();
 
 		var actual = parser.Parse(
-			"    # foo\n"
+			"    # foo\n" +
+			"foo\n" +
+			"    # bar"
 		);
 
 		var expected = new MDASTRootNode();
-		expected.Children.Add(new MDASTTextNode("    # foo"));
+		expected.Children.AddRange(new List<MDASTNode>
+		{
+			new MDASTTextNode("    # foo"),
+			new MDASTTextNode("foo"),
+			new MDASTTextNode("    # bar"),
+		});
 
 		Assert.AreEqual(expected, actual);
 	}
