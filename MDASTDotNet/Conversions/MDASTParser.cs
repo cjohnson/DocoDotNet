@@ -11,6 +11,11 @@ namespace MDASTDotNet.Conversions
 
             foreach (var line in markdown.Lines())
             {
+                if (String.IsNullOrEmpty(line))
+                {
+                    continue;
+                }
+
                 var thematicBreak = MDASTThematicBreakNode.TryParse(line);
                 if (thematicBreak != null)
                 {
