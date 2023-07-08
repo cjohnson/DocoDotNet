@@ -17,5 +17,9 @@ namespace MDASTDotNet.Extensions
 
 			return false;
 		}
+
+		[DebuggerStepThrough]
+		internal static bool IsMarkdownPunctuation(this char c) =>
+			c.MatchesAny('!', '\"', ';', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_', '`', '{', '|', '}', '~');
 	}
 }

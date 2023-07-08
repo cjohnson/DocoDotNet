@@ -11,7 +11,7 @@ public class MDASTHeadingTests
 {
 	/// <summary>
 	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see>: Implementation of
-	/// <see href="https://spec.commonmark.org/0.30/#example-62">Thematic Break Example 62</see>
+	/// <see href="https://spec.commonmark.org/0.30/#example-62">Heading Example 62</see>
 	/// </summary>
 	[TestMethod]
 	public void BasicDeclarationOfHeading()
@@ -43,7 +43,7 @@ public class MDASTHeadingTests
 
 	/// <summary>
 	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see>: Implementation of
-	/// <see href="https://spec.commonmark.org/0.30/#example-63">Thematic Break Example 63</see>
+	/// <see href="https://spec.commonmark.org/0.30/#example-63">Heading Example 63</see>
 	/// </summary>
 	[TestMethod]
 	public void MoreThanSixHashtagsIsNotAHeading()
@@ -62,7 +62,7 @@ public class MDASTHeadingTests
 
 	/// <summary>
 	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see>: Implementation of
-	/// <see href="https://spec.commonmark.org/0.30/#example-64">Thematic Break Example 64</see>
+	/// <see href="https://spec.commonmark.org/0.30/#example-64">Heading Example 64</see>
 	/// </summary>
 	[TestMethod]
 	public void AtLeastOneSpaceOrTabRequired()
@@ -81,5 +81,24 @@ public class MDASTHeadingTests
 			new MDASTTextNode("#5 bolt"),
 			new MDASTTextNode("#hashtag"),
 		});
+	}
+
+	/// <summary>
+	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see>: Implementation of
+	/// <see href="https://spec.commonmark.org/0.30/#example-65">Heading Example 65</see>
+	/// </summary>
+	[TestMethod]
+	public void EscapedHeadingsAreIgnored()
+	{
+		var parser = new MDASTParser();
+
+		var actual = parser.Parse(
+			"\\## foo"
+		);
+
+		var expected = new MDASTRootNode();
+		expected.Children.Add(new MDASTTextNode("## foo"));
+
+		Assert.AreEqual(expected, actual);
 	}
 }

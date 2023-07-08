@@ -54,6 +54,11 @@ namespace MDASTDotNet.LeafBlocks
 			var indentationCount = 0;
 			var headerLevel = 0;
 
+			if (target[0] == '\\')
+			{
+				return null;
+			}
+
 			int i = 0;
 			do
 			{

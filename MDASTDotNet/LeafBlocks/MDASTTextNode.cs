@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using MDASTDotNet.Extensions;
+using Newtonsoft.Json;
 
 namespace MDASTDotNet.LeafBlocks
 {
@@ -10,7 +11,50 @@ namespace MDASTDotNet.LeafBlocks
 
 		public MDASTTextNode(string? content) : base("text")
 		{
-			Content = content;
+			Content = ApplyPunctuationBackslashEscapes(content);
+		}
+
+		private static string ApplyPunctuationBackslashEscapes(string? content)
+		{
+			if (content is null)
+			{
+				return "";
+			}
+
+			if (content.Length < 2)
+			{
+				return content;
+			}
+
+			var result = "";
+			var escaped = false;
+			foreach (var c in content)
+			{
+				if (c == '\\')
+				{
+					escaped = true;
+					continue;
+				}
+
+				if (!escaped)
+				{
+					result += c;
+					continue;
+				}
+
+				escaped = false;
+
+				if (c.IsMarkdownPunctuation())
+				{
+					result += c;
+					continue;
+				}
+
+				result += '\\';
+				result += c;
+			}
+
+			return result;
 		}
 
 		public override bool Equals(object? obj)
