@@ -29,6 +29,18 @@ namespace MDASTDotNet.LeafBlocks
 			}
 		}
 
+		public override bool Equals(object? obj)
+		{
+			return obj is MDASTHeadingNode node &&
+				   Level == node.Level &&
+				   EqualityComparer<MDASTTextNode?>.Default.Equals(Text, node.Text);
+		}
+
+		public override int GetHashCode()
+		{
+			return HashCode.Combine(Type, Level, Text);
+		}
+
 		internal enum ParsingState
 		{
 			Indentation,
