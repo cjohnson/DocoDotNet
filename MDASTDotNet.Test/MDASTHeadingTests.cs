@@ -136,10 +136,34 @@ public class MDASTHeadingTests
 			"#                  foo                     "
 		);
 
-		// This will fail eventually when MDASTEmphasisNode is added. When this fails due to this reason,
-		// simply change the output expectation to use MDASTEmphasisNode (or the theoretical equivalent).
 		var expected = new MDASTRootNode();
 		expected.Children.Add(new MDASTHeadingNode(level: 1, text: new MDASTTextNode("foo")));
+
+		Assert.AreEqual(expected, actual);
+	}
+
+	/// <summary>
+	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see>: Implementation of
+	/// <see href="https://spec.commonmark.org/0.30/#example-68">Heading Example 68</see>
+	/// </summary>
+	[TestMethod]
+	public void UpToThreeSpacesOfIndentationAreAllowed()
+	{
+		var parser = new MDASTParser();
+
+		var actual = parser.Parse(
+			" ### foo\n" +
+			"  ## foo\n" +
+			"   # foo\n"
+		);
+
+		var expected = new MDASTRootNode();
+		expected.Children.AddRange(new List<MDASTNode>
+		{
+			new MDASTHeadingNode(level: 3, text: new MDASTTextNode("foo")),
+			new MDASTHeadingNode(level: 2, text: new MDASTTextNode("foo")),
+			new MDASTHeadingNode(level: 1, text: new MDASTTextNode("foo")),
+		});
 
 		Assert.AreEqual(expected, actual);
 	}
