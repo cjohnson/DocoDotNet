@@ -122,4 +122,25 @@ public class MDASTHeadingTests
 
 		Assert.AreEqual(expected, actual);
 	}
+
+	/// <summary>
+	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see>: Implementation of
+	/// <see href="https://spec.commonmark.org/0.30/#example-67">Heading Example 67</see>
+	/// </summary>
+	[TestMethod]
+	public void LeadingAndTrailingSpacesAreIgnoredInInlineContent()
+	{
+		var parser = new MDASTParser();
+
+		var actual = parser.Parse(
+			"#                  foo                     "
+		);
+
+		// This will fail eventually when MDASTEmphasisNode is added. When this fails due to this reason,
+		// simply change the output expectation to use MDASTEmphasisNode (or the theoretical equivalent).
+		var expected = new MDASTRootNode();
+		expected.Children.Add(new MDASTHeadingNode(level: 1, text: new MDASTTextNode("foo")));
+
+		Assert.AreEqual(expected, actual);
+	}
 }
