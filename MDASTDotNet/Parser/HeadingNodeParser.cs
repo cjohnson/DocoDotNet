@@ -3,6 +3,9 @@ using System.Text.RegularExpressions;
 
 namespace MDASTDotNet.Parser;
 
+/// <summary>
+/// Parser of HeadingNode according to the <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30 Specification.</see>
+/// </summary>
 internal partial class HeadingNodeParser
 {
 	/// <summary>
