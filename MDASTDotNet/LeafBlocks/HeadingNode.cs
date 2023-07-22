@@ -46,7 +46,7 @@ public partial class HeadingNode : INode
 	/// In this example, Text = "My Content".
 	/// </summary>
 	[JsonProperty("text")]
-	public MDASTTextNode? Text { get; set; }
+	public TextNode? Text { get; set; }
 
 	/// <summary>
 	/// Construct a new MDASTHeadingNode.
@@ -57,7 +57,7 @@ public partial class HeadingNode : INode
 	/// <param name="text">The text content of the heading.</param>
 	/// <exception cref="ArgumentException"></exception>
 	[JsonConstructor]
-	public HeadingNode(int level, MDASTTextNode? text)
+	public HeadingNode(int level, TextNode? text)
 	{
 		if (level < 0)
 		{
@@ -77,7 +77,7 @@ public partial class HeadingNode : INode
 	{
 		return obj is HeadingNode node &&
 			   Level == node.Level &&
-			   EqualityComparer<MDASTTextNode?>.Default.Equals(Text, node.Text);
+			   EqualityComparer<TextNode?>.Default.Equals(Text, node.Text);
 	}
 
 	public override int GetHashCode()

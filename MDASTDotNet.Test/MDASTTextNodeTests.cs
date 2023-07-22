@@ -12,7 +12,7 @@ public class MDASTTextNodeTests
 	[TestMethod]
 	public void PunctuationCharactersAreBackslashEscaped()
 	{
-		var actual = new MDASTTextNode(
+		var actual = new TextNode(
 			"\\!" +
 			"\\\"" +
 			"\\;" +
@@ -48,7 +48,7 @@ public class MDASTTextNodeTests
 			"\\~"
 		);
 
-		var expected = new MDASTTextNode(
+		var expected = new TextNode(
 			"!" +
 			"\"" +
 			";" +

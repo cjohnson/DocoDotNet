@@ -34,7 +34,7 @@ internal partial class HeadingNodeParser : IParser<HeadingNode>
 		// The first capturing group (2nd group) in the ATX Heading regex is the header hashtags substring,
 		// whose length corresponds to the header level. (For example, '##' -> Level = 2)
 		var level = match.Groups[1].Value.Length;
-		var text = new MDASTTextNode(match.Groups[2].Value);
+		var text = new TextNode(match.Groups[2].Value);
 
 		return new HeadingNode(level, text);
 	}

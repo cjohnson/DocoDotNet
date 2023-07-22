@@ -56,8 +56,8 @@ public class MDASTThematicBreakTests
 		var expected = new RootNode();
 		expected.Children.AddRange(new List<INode>
 		{
-			new MDASTTextNode("+++"),
-			new MDASTTextNode("==="),
+			new TextNode("+++"),
+			new TextNode("==="),
 		});
 
 		Assert.AreEqual(expected, actual);
@@ -83,9 +83,9 @@ public class MDASTThematicBreakTests
 		var expected = new RootNode();
 		expected.Children.AddRange(new List<INode>
 		{
-			new MDASTTextNode("--"),
-			new MDASTTextNode("**"),
-			new MDASTTextNode("__"),
+			new TextNode("--"),
+			new TextNode("**"),
+			new TextNode("__"),
 		});
 
 		Assert.AreEqual(expected, actual);
@@ -140,10 +140,10 @@ public class MDASTThematicBreakTests
 		var expected = new RootNode();
 		expected.Children.AddRange(new List<INode>
 		{
-			new MDASTTextNode("Foo"),
-			new MDASTTextNode("    ***"),
-			new MDASTTextNode("     ***"),
-			new MDASTTextNode("      ***"),
+			new TextNode("Foo"),
+			new TextNode("    ***"),
+			new TextNode("     ***"),
+			new TextNode("      ***"),
 		});
 
 		Assert.AreEqual(expected, actual);
@@ -238,9 +238,9 @@ public class MDASTThematicBreakTests
 		var expected = new RootNode();
 		expected.Children.AddRange(new List<INode>
 		{
-			new MDASTTextNode("_ _ _ _ a"),
-			new MDASTTextNode("a------"),
-			new MDASTTextNode("---a---"),
+			new TextNode("_ _ _ _ a"),
+			new TextNode("a------"),
+			new TextNode("---a---"),
 		});
 
 		Assert.AreEqual(expected, actual);
@@ -262,7 +262,7 @@ public class MDASTThematicBreakTests
 		// This will fail eventually when MDASTEmphasisNode is added. When this fails due to this reason,
 		// simply change the output expectation to use MDASTEmphasisNode (or the theoretical equivalent).
 		var expected = new RootNode();
-		expected.Children.Add(new MDASTTextNode(" *-*"));
+		expected.Children.Add(new TextNode(" *-*"));
 
 		Assert.AreEqual(expected, actual);
 	}
@@ -287,9 +287,9 @@ public class MDASTThematicBreakTests
 		var expected = new RootNode();
 		expected.Children.AddRange(new List<INode>
 		{
-			new MDASTTextNode("- foo"),
+			new TextNode("- foo"),
 			new MDASTThematicBreakNode(),
-			new MDASTTextNode("- bar"),
+			new TextNode("- bar"),
 		});
 
 		Assert.AreEqual(expected, actual);
@@ -313,9 +313,9 @@ public class MDASTThematicBreakTests
 		var expected = new RootNode();
 		expected.Children.AddRange(new List<INode>
 		{
-			new MDASTTextNode("Foo"),
+			new TextNode("Foo"),
 			new MDASTThematicBreakNode(),
-			new MDASTTextNode("bar"),
+			new TextNode("bar"),
 		});
 
 		Assert.AreEqual(expected, actual);
@@ -341,9 +341,9 @@ public class MDASTThematicBreakTests
 		var expected = new RootNode();
 		expected.Children.AddRange(new List<INode>
 		{
-			new MDASTTextNode("Foo"),
+			new TextNode("Foo"),
 			new MDASTThematicBreakNode(),
-			new MDASTTextNode("bar"),
+			new TextNode("bar"),
 		});
 
 		Assert.AreEqual(expected, actual);
@@ -369,9 +369,9 @@ public class MDASTThematicBreakTests
 		var expected = new RootNode();
 		expected.Children.AddRange(new List<INode>
 		{
-			new MDASTTextNode("* Foo"),
+			new TextNode("* Foo"),
 			new MDASTThematicBreakNode(),
-			new MDASTTextNode("* Bar"),
+			new TextNode("* Bar"),
 		});
 
 		Assert.AreEqual(expected, actual);
@@ -396,8 +396,8 @@ public class MDASTThematicBreakTests
 		var expected = new RootNode();
 		expected.Children.AddRange(new List<INode>
 		{
-			new MDASTTextNode("- Foo"), // This will become list -> list item
-			new MDASTTextNode("- * * *"), // This will become list -> list item -> thematic break
+			new TextNode("- Foo"), // This will become list -> list item
+			new TextNode("- * * *"), // This will become list -> list item -> thematic break
 		});
 
 		Assert.AreEqual(expected, actual);

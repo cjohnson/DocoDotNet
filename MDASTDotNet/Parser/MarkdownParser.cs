@@ -41,7 +41,7 @@ public class MarkdownParser : IParser<RootNode>
             }
 
             // Default to Text Node
-            var text = new MDASTTextNode(line);
+            var text = new TextNode(line);
             root.Children.Add(text);
         }
 

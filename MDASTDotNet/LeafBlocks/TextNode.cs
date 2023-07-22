@@ -3,19 +3,31 @@ using Newtonsoft.Json;
 
 namespace MDASTDotNet.LeafBlocks;
 
+/// <summary>
+/// A Text node is the default case in an MDAST parsing. If the target is not recognized by any other parser, it usually ends up
+/// as a text element.
+/// </summary>
 [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-public class MDASTTextNode : INode
+public class TextNode : INode
 {
 	public string Type { get; init; } = "text";
 
+	/// <summary>
+	/// The actual string text content.
+	/// </summary>
 	[JsonProperty("content")]
 	public string? Content { get; set; }
 
-	public MDASTTextNode(string? content)
+	public TextNode(string? content)
 	{
 		Content = ApplyPunctuationBackslashEscapes(content);
 	}
 
+	/// <summary>
+	/// Looks for backslash escapes, and properly escapes any markdown punctuation, if applicable.
+	/// </summary>
+	/// <param name="content">The content</param>
+	/// <returns></returns>
 	private static string ApplyPunctuationBackslashEscapes(string? content)
 	{
 		if (content is null)
@@ -61,7 +73,7 @@ public class MDASTTextNode : INode
 
 	public override bool Equals(object? obj)
 	{
-		return obj is MDASTTextNode node &&
+		return obj is TextNode node &&
 			   Content == node.Content;
 	}
 
