@@ -65,7 +65,7 @@ public class MarkdownParser : IParser
         public static List<IParser> CommonMark3_0 => new()
         {
             new ThematicBreakNodeParser(),
-            new HeadingNodeParser(),
+            new ATXHeadingNodeParser(),
         };
     }
 }

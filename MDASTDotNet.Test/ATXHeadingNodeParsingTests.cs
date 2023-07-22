@@ -7,7 +7,7 @@ namespace MDASTDotNet.Test;
 /// Tests for <see cref="MarkdownParser"/> parsing of <see cref="HeadingNode"/>.
 /// </summary>
 [TestClass]
-public class HeadingNodeTests
+public class ATXHeadingNodeParsingTests
 {
 	/// <summary>
 	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see>: Implementation of
