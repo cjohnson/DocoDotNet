@@ -6,7 +6,7 @@ namespace MDASTDotNet.Parser;
 /// <summary>
 /// Parser of HeadingNode according to the <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30 Specification.</see>
 /// </summary>
-internal partial class HeadingNodeParser
+internal partial class HeadingNodeParser : IParser<HeadingNode>
 {
 	/// <summary>
 	/// Regex that matches an <see href="https://spec.commonmark.org/0.30/#atx-headings">ATX Heading</see> according to the
@@ -21,7 +21,7 @@ internal partial class HeadingNodeParser
 	/// </summary>
 	/// <param name="target">The target line or section to try to parse.</param>
 	/// <returns>An MDASTHeadingNode on success, and null on failure.</returns>
-	internal HeadingNode? Parse(string target)
+	public HeadingNode? Parse(string target)
 	{
 		var headingRegex = HeadingRegex();
 
