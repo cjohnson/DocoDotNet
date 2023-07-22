@@ -1,10 +1,13 @@
 ﻿using MDASTDotNet.Extensions;
 using MDASTDotNet.LeafBlocks;
+using MDASTDotNet.Parser;
 
 namespace MDASTDotNet.Conversions
 {
     public class MDASTParser
     {
+        HeadingNodeParser headingNodeParser = new();
+
         public MDASTRootNode Parse(string markdown)
         {
             var root = new MDASTRootNode();
@@ -23,7 +26,7 @@ namespace MDASTDotNet.Conversions
                     continue;
                 }
 
-                var header = HeadingNode.TryParse(line);
+                var header = headingNodeParser.Parse(line);
                 if (header != null)
                 {
                     root.Children.Add(header);
