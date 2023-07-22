@@ -23,7 +23,7 @@ namespace MDASTDotNet.Conversions
                     continue;
                 }
 
-                var header = MDASTHeadingNode.TryParse(line);
+                var header = HeadingNode.TryParse(line);
                 if (header != null)
                 {
                     root.Children.Add(header);

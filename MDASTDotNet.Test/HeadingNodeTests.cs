@@ -4,10 +4,10 @@ using MDASTDotNet.LeafBlocks;
 namespace MDASTDotNet.Test;
 
 /// <summary>
-/// Tests for <see cref="MDASTParser"/> parsing of <see cref="MDASTHeadingNode"/> nodes.
+/// Tests for <see cref="MDASTParser"/> parsing of <see cref="HeadingNode"/>.
 /// </summary>
 [TestClass]
-public class MDASTHeadingTests
+public class HeadingNodeTests
 {
 	/// <summary>
 	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see>: Implementation of
@@ -30,12 +30,12 @@ public class MDASTHeadingTests
 		var expected = new MDASTRootNode();
 		expected.Children.AddRange(new List<MDASTNode>
 		{
-			new MDASTHeadingNode(1, new MDASTTextNode("foo")),
-			new MDASTHeadingNode(2, new MDASTTextNode("foo")),
-			new MDASTHeadingNode(3, new MDASTTextNode("foo")),
-			new MDASTHeadingNode(4, new MDASTTextNode("foo")),
-			new MDASTHeadingNode(5, new MDASTTextNode("foo")),
-			new MDASTHeadingNode(6, new MDASTTextNode("foo")),
+			new HeadingNode(level: 1, text: new MDASTTextNode("foo")),
+			new HeadingNode(level: 2, text: new MDASTTextNode("foo")),
+			new HeadingNode(level: 3, text: new MDASTTextNode("foo")),
+			new HeadingNode(level: 4, text: new MDASTTextNode("foo")),
+			new HeadingNode(level: 5, text: new MDASTTextNode("foo")),
+			new HeadingNode(level: 6, text: new MDASTTextNode("foo")),
 		});
 
 		Assert.AreEqual(expected, actual);
@@ -118,7 +118,7 @@ public class MDASTHeadingTests
 		// This will fail eventually when MDASTEmphasisNode is added. When this fails due to this reason,
 		// simply change the output expectation to use MDASTEmphasisNode (or the theoretical equivalent).
 		var expected = new MDASTRootNode();
-		expected.Children.Add(new MDASTHeadingNode(level: 1, text: new MDASTTextNode("foo *bar* *baz*")));
+		expected.Children.Add(new HeadingNode(level: 1, text: new MDASTTextNode("foo *bar* *baz*")));
 
 		Assert.AreEqual(expected, actual);
 	}
@@ -137,7 +137,7 @@ public class MDASTHeadingTests
 		);
 
 		var expected = new MDASTRootNode();
-		expected.Children.Add(new MDASTHeadingNode(level: 1, text: new MDASTTextNode("foo")));
+		expected.Children.Add(new HeadingNode(level: 1, text: new MDASTTextNode("foo")));
 
 		Assert.AreEqual(expected, actual);
 	}
@@ -160,9 +160,9 @@ public class MDASTHeadingTests
 		var expected = new MDASTRootNode();
 		expected.Children.AddRange(new List<MDASTNode>
 		{
-			new MDASTHeadingNode(level: 3, text: new MDASTTextNode("foo")),
-			new MDASTHeadingNode(level: 2, text: new MDASTTextNode("foo")),
-			new MDASTHeadingNode(level: 1, text: new MDASTTextNode("foo")),
+			new HeadingNode(level: 3, text: new MDASTTextNode("foo")),
+			new HeadingNode(level: 2, text: new MDASTTextNode("foo")),
+			new HeadingNode(level: 1, text: new MDASTTextNode("foo")),
 		});
 
 		Assert.AreEqual(expected, actual);
@@ -213,8 +213,8 @@ public class MDASTHeadingTests
 		var expected = new MDASTRootNode();
 		expected.Children.AddRange(new List<MDASTNode>
 		{
-			new MDASTHeadingNode(level: 2, text: new MDASTTextNode("foo")),
-			new MDASTHeadingNode(level: 3, text: new MDASTTextNode("bar")),
+			new HeadingNode(level: 2, text: new MDASTTextNode("foo")),
+			new HeadingNode(level: 3, text: new MDASTTextNode("bar")),
 		});
 
 		Assert.AreEqual(expected, actual);
@@ -237,8 +237,8 @@ public class MDASTHeadingTests
 		var expected = new MDASTRootNode();
 		expected.Children.AddRange(new List<MDASTNode>
 		{
-			new MDASTHeadingNode(level: 1, text: new MDASTTextNode("foo")),
-			new MDASTHeadingNode(level: 5, text: new MDASTTextNode("foo")),
+			new HeadingNode(level: 1, text: new MDASTTextNode("foo")),
+			new HeadingNode(level: 5, text: new MDASTTextNode("foo")),
 		});
 
 		Assert.AreEqual(expected, actual);
@@ -260,7 +260,7 @@ public class MDASTHeadingTests
 		var expected = new MDASTRootNode();
 		expected.Children.AddRange(new List<MDASTNode>
 		{
-			new MDASTHeadingNode(level: 3, text: new MDASTTextNode("foo")),
+			new HeadingNode(level: 3, text: new MDASTTextNode("foo")),
 		});
 
 		Assert.AreEqual(expected, actual);
@@ -282,7 +282,7 @@ public class MDASTHeadingTests
 		var expected = new MDASTRootNode();
 		expected.Children.AddRange(new List<MDASTNode>
 		{
-			new MDASTHeadingNode(level: 3, text: new MDASTTextNode("foo ### b")),
+			new HeadingNode(level: 3, text: new MDASTTextNode("foo ### b")),
 		});
 
 		Assert.AreEqual(expected, actual);
@@ -304,7 +304,7 @@ public class MDASTHeadingTests
 		var expected = new MDASTRootNode();
 		expected.Children.AddRange(new List<MDASTNode>
 		{
-			new MDASTHeadingNode(level: 1, text: new MDASTTextNode("foo#")),
+			new HeadingNode(level: 1, text: new MDASTTextNode("foo#")),
 		});
 
 		Assert.AreEqual(expected, actual);
@@ -328,9 +328,9 @@ public class MDASTHeadingTests
 		var expected = new MDASTRootNode();
 		expected.Children.AddRange(new List<MDASTNode>
 		{
-			new MDASTHeadingNode(level: 3, text: new MDASTTextNode("foo ###")),
-			new MDASTHeadingNode(level: 2, text: new MDASTTextNode("foo ###")),
-			new MDASTHeadingNode(level: 1, text: new MDASTTextNode("foo #")),
+			new HeadingNode(level: 3, text: new MDASTTextNode("foo ###")),
+			new HeadingNode(level: 2, text: new MDASTTextNode("foo ###")),
+			new HeadingNode(level: 1, text: new MDASTTextNode("foo #")),
 		});
 
 		Assert.AreEqual(expected, actual);
@@ -355,7 +355,7 @@ public class MDASTHeadingTests
 		expected.Children.AddRange(new List<MDASTNode>
 		{
 			new MDASTThematicBreakNode(),
-			new MDASTHeadingNode(level: 2, text: new MDASTTextNode("foo")),
+			new HeadingNode(level: 2, text: new MDASTTextNode("foo")),
 			new MDASTThematicBreakNode(),
 		});
 
@@ -381,7 +381,7 @@ public class MDASTHeadingTests
 		expected.Children.AddRange(new List<MDASTNode>
 		{
 			new MDASTTextNode("Foo bar"),
-			new MDASTHeadingNode(level: 1, text: new MDASTTextNode("baz")),
+			new HeadingNode(level: 1, text: new MDASTTextNode("baz")),
 			new MDASTTextNode("Bar foo"),
 		});
 
@@ -406,9 +406,9 @@ public class MDASTHeadingTests
 		var expected = new MDASTRootNode();
 		expected.Children.AddRange(new List<MDASTNode>
 		{
-			new MDASTHeadingNode(level: 2, text: new MDASTTextNode("")),
-			new MDASTHeadingNode(level: 1, text: new MDASTTextNode("")),
-			new MDASTHeadingNode(level: 3, text: new MDASTTextNode("")),
+			new HeadingNode(level: 2, text: new MDASTTextNode("")),
+			new HeadingNode(level: 1, text: new MDASTTextNode("")),
+			new HeadingNode(level: 3, text: new MDASTTextNode("")),
 		});
 
 		Assert.AreEqual(expected, actual);

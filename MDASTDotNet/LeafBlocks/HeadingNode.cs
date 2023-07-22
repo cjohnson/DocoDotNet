@@ -17,7 +17,7 @@ namespace MDASTDotNet.LeafBlocks;
 /// The heading level is equal to the number of # characters in the opening sequence.
 /// </summary>
 [JsonObject(MemberSerialization.OptIn)]
-public partial class MDASTHeadingNode : MDASTNode
+public partial class HeadingNode : MDASTNode
 {
 	/// <summary>
 	/// The level of the header. Traditionally, this corresponds to the HTML header level.
@@ -56,7 +56,7 @@ public partial class MDASTHeadingNode : MDASTNode
 	/// <param name="text">The text content of the heading.</param>
 	/// <exception cref="ArgumentException"></exception>
 	[JsonConstructor]
-	public MDASTHeadingNode(int level, MDASTTextNode? text) : base("heading")
+	public HeadingNode(int level, MDASTTextNode? text) : base("heading")
 	{
 		if (level < 0)
 		{
@@ -85,7 +85,7 @@ public partial class MDASTHeadingNode : MDASTNode
 	/// </summary>
 	/// <param name="target">The target line or section to try to parse.</param>
 	/// <returns>An MDASTHeadingNode on success, and null on failure.</returns>
-	internal static MDASTHeadingNode? TryParse(string target)
+	internal static HeadingNode? TryParse(string target)
 	{
 		var headingRegex = HeadingRegex();
 
@@ -98,12 +98,12 @@ public partial class MDASTHeadingNode : MDASTNode
 		var level = match.Groups[1].Value.Length;
 		var text = new MDASTTextNode(match.Groups[2].Value);
 
-		return new MDASTHeadingNode(level, text);
+		return new HeadingNode(level, text);
 	}
 
 	public override bool Equals(object? obj)
 	{
-		return obj is MDASTHeadingNode node &&
+		return obj is HeadingNode node &&
 			   Level == node.Level &&
 			   EqualityComparer<MDASTTextNode?>.Default.Equals(Text, node.Text);
 	}
