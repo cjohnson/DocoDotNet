@@ -25,14 +25,19 @@ internal partial class ATXHeadingNodeParser : IParser
 	private static partial Regex ATXHeadingRegex();
 
 	/// <summary>
-	/// Attempts to parse an <see href="https://spec.commonmark.org/0.30/#atx-headings">ATX Heading</see> from the given string line 
-	/// target according to the <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30 Specification.</see>
+	/// Attempts to parse an <see href="https://spec.commonmark.org/0.30/#atx-headings">ATX Heading</see> from the given remaining content lines
+	/// according to the <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30 Specification.</see>
 	/// </summary>
-	/// <param name="target">The target line or section to try to parse.</param>
+	/// <param name="contentLines">The remaining lines in the document.</param>
 	/// <returns>An MDASTHeadingNode on success, and null on failure.</returns>
-	public INode? Parse(string target)
+	public INode? Parse(List<string> contentLines)
 	{
-		var match = ATXHeadingRegex().Match(target);
+		if (!contentLines.Any())
+		{
+			return null;
+		}
+
+		var match = ATXHeadingRegex().Match(contentLines.First());
 		if (!match.Success || match.Groups.Count < 3)
 		{
 			return null;
@@ -42,6 +47,8 @@ internal partial class ATXHeadingNodeParser : IParser
 		// whose length corresponds to the header level. (For example, '##' -> Level = 2)
 		var level = match.Groups[1].Value.Length;
 		var text = new TextNode(match.Groups[2].Value);
+
+		contentLines.RemoveAt(0);
 
 		return new HeadingNode(level, text);
 	}

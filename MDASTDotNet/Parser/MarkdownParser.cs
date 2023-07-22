@@ -6,7 +6,7 @@ namespace MDASTDotNet.Parser;
 /// <summary>
 /// Parses a Markdown-formatted string according to the <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30 Specification.</see>.
 /// </summary>
-public class MarkdownParser : IParser
+public class MarkdownParser
 {
 	public List<IParser> Parsers { get; set; }
 
@@ -29,43 +29,32 @@ public class MarkdownParser : IParser
     {
         var root = new RootNode();
 
-        foreach (var line in markdown.Lines())
+        var lines = markdown.Lines();
+
+        while (lines.Any())
         {
-            if (string.IsNullOrEmpty(line))
-            {
-                continue;
-            }
-
-            INode? node = null;
-            foreach (var parser in Parsers)
-            {
-                node = parser.Parse(line);
-                if (node != null)
-                {
-                    root.Children.Add(node);
-                    break;
-                }
-            }
-
-            if (node is not null)
-            {
-                continue;
-            }
-
-			// Default to Text Node
-			var text = new TextNode(line);
-			root.Children.Add(text);
+			foreach (var parser in Parsers)
+			{
+				var node = parser.Parse(lines);
+				if (node != null)
+				{
+					root.Children.Add(node);
+					break;
+				}
+			}
 		}
 
-        return root;
+		return root;
     }
 
     public static class Presets
     {
         public static List<IParser> CommonMark3_0 => new()
         {
+            new BlankLineParser(),
             new ThematicBreakNodeParser(),
             new ATXHeadingNodeParser(),
+            new TextNodeParser(),
         };
     }
 }

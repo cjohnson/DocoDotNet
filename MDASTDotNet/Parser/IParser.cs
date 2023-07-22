@@ -3,7 +3,7 @@
 namespace MDASTDotNet.Parser;
 
 /// <summary>
-/// General parsing interface, defining an interface for trying to deserialize a string target (a line or snippet)
+/// General parsing interface, defining an interface for trying to deserialize line-by-line content
 /// into a model type, <typeparamref name="T"/>.
 /// <br/>
 /// If the parse operation is a success, the <see cref="Parse(string)"/> method returns the model type.
@@ -18,7 +18,7 @@ public interface IParser
 	/// If the operation is a success, an instance of <typeparamref name="T"/> is returned.
 	/// If the operation is a failure, null is returned.
 	/// </summary>
-	/// <param name="target">The string target to try to deserialize</param>
+	/// <param name="contentLines">The remaining content (list of string lines) in the document</param>
 	/// <returns></returns>
-	public INode? Parse(string target);
+	public INode? Parse(List<string> contentLines);
 }
