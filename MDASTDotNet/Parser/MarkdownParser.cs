@@ -9,6 +9,7 @@ namespace MDASTDotNet.Parser;
 public class MarkdownParser : IParser<RootNode>
 {
     HeadingNodeParser headingNodeParser = new();
+    ThematicBreakNodeParser thematicBreakNodeParser = new();
 
     /// <summary>
     /// Parses a Markdown-formatted string into MDAST according to the given specification.
@@ -26,7 +27,7 @@ public class MarkdownParser : IParser<RootNode>
                 continue;
             }
 
-            var thematicBreak = ThematicBreakNode.TryParse(line);
+            var thematicBreak = thematicBreakNodeParser.Parse(line);
             if (thematicBreak != null)
             {
                 root.Children.Add(thematicBreak);
