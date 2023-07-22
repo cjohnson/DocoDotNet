@@ -3,7 +3,7 @@
 namespace MDASTDotNet.Test;
 
 [TestClass]
-public class MDASTTextNodeTests
+public class TextNodeTests
 {
 	/// <summary>
 	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see>: Implementation of
