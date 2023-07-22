@@ -8,8 +8,17 @@ namespace MDASTDotNet.Parser;
 /// </summary>
 public class MarkdownParser : IParser
 {
-    HeadingNodeParser headingNodeParser = new();
-    ThematicBreakNodeParser thematicBreakNodeParser = new();
+	public List<IParser> Parsers { get; set; }
+
+    public MarkdownParser()
+    {
+		Parsers = Presets.CommonMark3_0;
+    }
+
+    public MarkdownParser(List<IParser> parsers)
+    {
+        Parsers = parsers;
+    }
 
     /// <summary>
     /// Parses a Markdown-formatted string into MDAST according to the given specification.
@@ -27,25 +36,36 @@ public class MarkdownParser : IParser
                 continue;
             }
 
-            var thematicBreak = thematicBreakNodeParser.Parse(line);
-            if (thematicBreak != null)
+            INode? node = null;
+            foreach (var parser in Parsers)
             {
-                root.Children.Add(thematicBreak);
+                node = parser.Parse(line);
+                if (node != null)
+                {
+                    root.Children.Add(node);
+                    break;
+                }
+            }
+
+            if (node is not null)
+            {
                 continue;
             }
 
-            var header = headingNodeParser.Parse(line);
-            if (header != null)
-            {
-                root.Children.Add(header);
-                continue;
-            }
-
-            // Default to Text Node
-            var text = new TextNode(line);
-            root.Children.Add(text);
-        }
+			// Default to Text Node
+			var text = new TextNode(line);
+			root.Children.Add(text);
+		}
 
         return root;
+    }
+
+    public static class Presets
+    {
+        public static List<IParser> CommonMark3_0 => new()
+        {
+            new ThematicBreakNodeParser(),
+            new HeadingNodeParser(),
+        };
     }
 }
