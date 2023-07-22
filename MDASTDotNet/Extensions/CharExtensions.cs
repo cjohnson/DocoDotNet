@@ -1,25 +1,24 @@
 ﻿using System.Diagnostics;
 
-namespace MDASTDotNet.Extensions
-{
-	internal static class CharExtensions
-	{
-		[DebuggerStepThrough]
-		internal static bool MatchesAny(this char c, params char[] tests)
-		{
-			foreach (var test in tests)
-			{
-				if (c == test)
-				{
-					return true;
-				}
-			}
+namespace MDASTDotNet.Extensions;
 
-			return false;
+internal static class CharExtensions
+{
+	[DebuggerStepThrough]
+	internal static bool MatchesAny(this char c, params char[] tests)
+	{
+		foreach (var test in tests)
+		{
+			if (c == test)
+			{
+				return true;
+			}
 		}
 
-		[DebuggerStepThrough]
-		internal static bool IsMarkdownPunctuation(this char c) =>
-			c.MatchesAny('!', '\"', ';', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_', '`', '{', '|', '}', '~');
+		return false;
 	}
+
+	[DebuggerStepThrough]
+	internal static bool IsMarkdownPunctuation(this char c) =>
+		c.MatchesAny('!', '\"', ';', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_', '`', '{', '|', '}', '~');
 }

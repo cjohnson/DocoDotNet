@@ -1,21 +1,20 @@
 ﻿using MDASTDotNet.Parser;
 using Newtonsoft.Json;
 
-namespace MDASTDotNet
+namespace MDASTDotNet;
+
+internal class Program
 {
-	internal class Program
+	static void Main(string[] args)
 	{
-		static void Main(string[] args)
+		var parser = new MarkdownParser();
+		var rootNode = parser.Parse("###\nThat was an empty header!");
+
+		var mdastAsJson = JsonConvert.SerializeObject(rootNode, Formatting.Indented, new JsonSerializerSettings()
 		{
-			var parser = new MarkdownParser();
-			var rootNode = parser.Parse("###\nThat was an empty header!");
+			NullValueHandling = NullValueHandling.Ignore,
+		});
 
-			var mdastAsJson = JsonConvert.SerializeObject(rootNode, Formatting.Indented, new JsonSerializerSettings()
-			{
-				NullValueHandling = NullValueHandling.Ignore,
-			});
-
-			Console.WriteLine(mdastAsJson);
-        }
-	}
+		Console.WriteLine(mdastAsJson);
+    }
 }

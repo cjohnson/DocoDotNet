@@ -1,71 +1,70 @@
 ﻿using MDASTDotNet.Extensions;
 using Newtonsoft.Json;
 
-namespace MDASTDotNet.LeafBlocks
+namespace MDASTDotNet.LeafBlocks;
+
+[JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+public class MDASTTextNode : MDASTNode
 {
-	[JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-	public class MDASTTextNode : MDASTNode
+	[JsonProperty("content")]
+	public string? Content { get; set; }
+
+	public MDASTTextNode(string? content) : base("text")
 	{
-		[JsonProperty("content")]
-		public string? Content { get; set; }
+		Content = ApplyPunctuationBackslashEscapes(content);
+	}
 
-		public MDASTTextNode(string? content) : base("text")
+	private static string ApplyPunctuationBackslashEscapes(string? content)
+	{
+		if (content is null)
 		{
-			Content = ApplyPunctuationBackslashEscapes(content);
+			return "";
 		}
 
-		private static string ApplyPunctuationBackslashEscapes(string? content)
+		if (content.Length < 2)
 		{
-			if (content is null)
+			return content;
+		}
+
+		var result = "";
+		var escaped = false;
+		foreach (var c in content)
+		{
+			if (c == '\\')
 			{
-				return "";
+				escaped = true;
+				continue;
 			}
 
-			if (content.Length < 2)
+			if (!escaped)
 			{
-				return content;
-			}
-
-			var result = "";
-			var escaped = false;
-			foreach (var c in content)
-			{
-				if (c == '\\')
-				{
-					escaped = true;
-					continue;
-				}
-
-				if (!escaped)
-				{
-					result += c;
-					continue;
-				}
-
-				escaped = false;
-
-				if (c.IsMarkdownPunctuation())
-				{
-					result += c;
-					continue;
-				}
-
-				result += '\\';
 				result += c;
+				continue;
 			}
 
-			return result;
+			escaped = false;
+
+			if (c.IsMarkdownPunctuation())
+			{
+				result += c;
+				continue;
+			}
+
+			result += '\\';
+			result += c;
 		}
 
-		public override bool Equals(object? obj)
-		{
-			return obj is MDASTTextNode node &&
-				   Content == node.Content;
-		}
+		return result;
+	}
 
-		public override int GetHashCode()
-		{
-			return HashCode.Combine(Type, Content);
-		}
+	public override bool Equals(object? obj)
+	{
+		return obj is MDASTTextNode node &&
+			   Content == node.Content;
+	}
+
+	public override int GetHashCode()
+	{
+		return HashCode.Combine(Type, Content);
 	}
 }

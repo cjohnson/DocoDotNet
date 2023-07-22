@@ -2,99 +2,98 @@
 
 using MDASTDotNet.Extensions;
 
-namespace MDASTDotNet.LeafBlocks
+namespace MDASTDotNet.LeafBlocks;
+
+[JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+public class MDASTThematicBreakNode : MDASTNode
 {
-	[JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-	public class MDASTThematicBreakNode : MDASTNode
+	public MDASTThematicBreakNode() : base("thematicBreak")
+	{ }
+
+	internal enum ParsingState
 	{
-		public MDASTThematicBreakNode() : base("thematicBreak")
-		{ }
+		Indentation,
+		MatchCharacter,
+	}
 
-		internal enum ParsingState
+	public override bool Equals(object? obj)
+	{
+		return obj is MDASTThematicBreakNode;
+	}
+
+	public override int GetHashCode()
+	{
+		return Type.GetHashCode();
+	}
+
+	internal static MDASTThematicBreakNode? TryParse(string target)
+	{
+		var parsingState = ParsingState.Indentation;
+
+		var indentationCount = 0;
+
+		char? selectedCharacter = null;
+		var selectedCharacterCount = 0;
+
+		int i = 0;
+		do
 		{
-			Indentation,
-			MatchCharacter,
-		}
+			char current = target[i];
 
-		public override bool Equals(object? obj)
-		{
-			return obj is MDASTThematicBreakNode;
-		}
-
-		public override int GetHashCode()
-		{
-			return Type.GetHashCode();
-		}
-
-		internal static MDASTThematicBreakNode? TryParse(string target)
-		{
-			var parsingState = ParsingState.Indentation;
-
-			var indentationCount = 0;
-
-			char? selectedCharacter = null;
-			var selectedCharacterCount = 0;
-
-			int i = 0;
-			do
+			if (parsingState == ParsingState.Indentation)
 			{
-				char current = target[i];
-
-				if (parsingState == ParsingState.Indentation)
+				if (indentationCount > 3)
 				{
-					if (indentationCount > 3)
-					{
-						return null;
-					}
+					return null;
+				}
 
-					if (current.MatchesAny('-', '_', '*'))
-					{
-						parsingState = ParsingState.MatchCharacter;
-						continue;
-					}
-
-					if (!current.MatchesAny('\t', ' '))
-					{
-						return null;
-					}
-
-					++indentationCount;
-					++i;
+				if (current.MatchesAny('-', '_', '*'))
+				{
+					parsingState = ParsingState.MatchCharacter;
 					continue;
 				}
 
-				if (parsingState == ParsingState.MatchCharacter)
+				if (!current.MatchesAny('\t', ' '))
 				{
-					if (selectedCharacter == null)
-					{
-						if (!current.MatchesAny('-', '_', '*'))
-						{
-							return null;
-						}
+					return null;
+				}
 
-						selectedCharacter = current;
-					}
+				++indentationCount;
+				++i;
+				continue;
+			}
 
-					if (!current.MatchesAny(' ', '\t', (char)selectedCharacter))
+			if (parsingState == ParsingState.MatchCharacter)
+			{
+				if (selectedCharacter == null)
+				{
+					if (!current.MatchesAny('-', '_', '*'))
 					{
 						return null;
 					}
 
-					if (current == selectedCharacter)
-					{
-						++selectedCharacterCount;
-					}
-
-					++i;
+					selectedCharacter = current;
 				}
-			} while (i < target.Length);
 
-			if (selectedCharacterCount < 3)
-			{
-				return null;
+				if (!current.MatchesAny(' ', '\t', (char)selectedCharacter))
+				{
+					return null;
+				}
+
+				if (current == selectedCharacter)
+				{
+					++selectedCharacterCount;
+				}
+
+				++i;
 			}
+		} while (i < target.Length);
 
-			return new MDASTThematicBreakNode();
+		if (selectedCharacterCount < 3)
+		{
+			return null;
 		}
+
+		return new MDASTThematicBreakNode();
 	}
 }
