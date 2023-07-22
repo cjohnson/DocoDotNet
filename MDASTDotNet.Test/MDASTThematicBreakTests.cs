@@ -1,10 +1,10 @@
-using MDASTDotNet.Conversions;
 using MDASTDotNet.LeafBlocks;
+using MDASTDotNet.Parser;
 
 namespace MDASTDotNet.Test;
 
 /// <summary>
-/// Tests for <see cref="MDASTParser"/> parsing of <see cref="MDASTThematicBreakNode"/> nodes.
+/// Tests for <see cref="MarkdownParser"/> parsing of <see cref="MDASTThematicBreakNode"/> nodes.
 /// </summary>
 [TestClass]
 public class MDASTThematicBreakTests
@@ -16,7 +16,7 @@ public class MDASTThematicBreakTests
 	[TestMethod]
 	public void BasicDeclarationOfThematicBreak()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		var actual = parser.Parse(
 			"***\n" +
@@ -44,7 +44,7 @@ public class MDASTThematicBreakTests
 	[TestMethod]
 	public void WrongCharactersDeclarationOfThematicBreak()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		var actual = parser.Parse(
 			"+++\n" +
@@ -70,7 +70,7 @@ public class MDASTThematicBreakTests
 	[TestMethod]
 	public void NotEnoughCharactersDeclarationOfThematicBreak()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		var actual = parser.Parse(
 			"--\n" +
@@ -98,7 +98,7 @@ public class MDASTThematicBreakTests
 	[TestMethod]
 	public void AllowedIndentationDeclarationOfThematicBreak()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		var actual = parser.Parse(
 			" ***\n" +
@@ -126,7 +126,7 @@ public class MDASTThematicBreakTests
 	[TestMethod]
 	public void FourOrMoreSpacesIsTooManyForThematicBreak()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		var actual = parser.Parse(
 			"Foo\n" +
@@ -156,7 +156,7 @@ public class MDASTThematicBreakTests
 	[TestMethod]
 	public void MoreThanThreeValidCharactersMayBeUsedForThematicBreak()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		var actual = parser.Parse(
 			"____________________________"
@@ -178,7 +178,7 @@ public class MDASTThematicBreakTests
 	[TestMethod]
 	public void SpacesAndTabsAreAllowedBetweenTheCharactersForThematicBreak()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		var actual = parser.Parse(
 			" - - -\n" +
@@ -204,7 +204,7 @@ public class MDASTThematicBreakTests
 	[TestMethod]
 	public void SpacesAndTabsAreAllowedAtTheEndOfThematicBreak()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 		
 		var actual = parser.Parse(
 			"- - - -    "
@@ -223,7 +223,7 @@ public class MDASTThematicBreakTests
 	[TestMethod]
 	public void NoCharactersOtherThanSpacesOrTabsAllowedAtAtTheEndOfThematicBreak()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		// This will fail eventually when MDASTTextNode parsing is fixed. Uncommenting the commented lines
 		// will fix the issue, since it will be intended that they are separate lines.
@@ -253,7 +253,7 @@ public class MDASTThematicBreakTests
 	[TestMethod]
 	public void CharacterChoiceShouldBeConsistentForThematicBreaks()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		var actual = parser.Parse(
 			" *-*"
@@ -274,7 +274,7 @@ public class MDASTThematicBreakTests
 	[TestMethod]
 	public void BlankLinesBeforeAndAfterAreNotNeededForThematicBreaks()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		var actual = parser.Parse(
 			"- foo\n" +
@@ -302,7 +302,7 @@ public class MDASTThematicBreakTests
 	[TestMethod]
 	public void ParagraphsAreInterruptedByThematicBreaks()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		var actual = parser.Parse(
 			"Foo\n" +
@@ -328,7 +328,7 @@ public class MDASTThematicBreakTests
 	[TestMethod]
 	public void SetextHeadingsTakePrecedentOverThematicBreaks()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		var actual = parser.Parse(
 			"Foo\n" +
@@ -356,7 +356,7 @@ public class MDASTThematicBreakTests
 	[TestMethod]
 	public void ThematicBreaksTakePrecedentOverLists()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		var actual = parser.Parse(
 			"* Foo\n" +
@@ -384,7 +384,7 @@ public class MDASTThematicBreakTests
 	[TestMethod]
 	public void ThematicBreaksInListItemsRequireDifferentCharacterThanTheListBullet()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		var actual = parser.Parse(
 			"- Foo\n" +

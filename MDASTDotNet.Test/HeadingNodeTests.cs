@@ -1,10 +1,10 @@
-﻿using MDASTDotNet.Conversions;
-using MDASTDotNet.LeafBlocks;
+﻿using MDASTDotNet.LeafBlocks;
+using MDASTDotNet.Parser;
 
 namespace MDASTDotNet.Test;
 
 /// <summary>
-/// Tests for <see cref="MDASTParser"/> parsing of <see cref="HeadingNode"/>.
+/// Tests for <see cref="MarkdownParser"/> parsing of <see cref="HeadingNode"/>.
 /// </summary>
 [TestClass]
 public class HeadingNodeTests
@@ -16,7 +16,7 @@ public class HeadingNodeTests
 	[TestMethod]
 	public void BasicDeclarationOfHeading()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		var actual = parser.Parse(
 			"# foo\n" +
@@ -48,7 +48,7 @@ public class HeadingNodeTests
 	[TestMethod]
 	public void MoreThanSixHashtagsIsNotAHeading()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		var actual = parser.Parse(
 			"####### foo"
@@ -67,7 +67,7 @@ public class HeadingNodeTests
 	[TestMethod]
 	public void AtLeastOneSpaceOrTabRequired()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		var actual = parser.Parse(
 			"#5 bolt\n" +
@@ -90,7 +90,7 @@ public class HeadingNodeTests
 	[TestMethod]
 	public void EscapedHeadingsAreIgnored()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		var actual = parser.Parse(
 			"\\## foo"
@@ -109,7 +109,7 @@ public class HeadingNodeTests
 	[TestMethod]
 	public void ContentsAreParsedAsInlines()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		var actual = parser.Parse(
 			"# foo *bar* \\*baz\\*"
@@ -130,7 +130,7 @@ public class HeadingNodeTests
 	[TestMethod]
 	public void LeadingAndTrailingSpacesAreIgnoredInInlineContent()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		var actual = parser.Parse(
 			"#                  foo                     "
@@ -149,7 +149,7 @@ public class HeadingNodeTests
 	[TestMethod]
 	public void UpToThreeSpacesOfIndentationAreAllowed()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		var actual = parser.Parse(
 			" ### foo\n" +
@@ -177,7 +177,7 @@ public class HeadingNodeTests
 	[TestMethod]
 	public void FourSpacesOfIndentationIsTooMany()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		var actual = parser.Parse(
 			"    # foo\n" +
@@ -203,7 +203,7 @@ public class HeadingNodeTests
 	[TestMethod]
 	public void ClosingSequencesAreAllowed()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		var actual = parser.Parse(
 			"## foo ##\n" +
@@ -227,7 +227,7 @@ public class HeadingNodeTests
 	[TestMethod]
 	public void ClosingSequencesDoNotNeedToMatchHeaderLevel()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		var actual = parser.Parse(
 			"# foo ##################################\n" +
@@ -251,7 +251,7 @@ public class HeadingNodeTests
 	[TestMethod]
 	public void SpacesOrTabsAreAllowedAfterTheClosingSequence()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		var actual = parser.Parse(
 			"### foo ###     \n"
@@ -273,7 +273,7 @@ public class HeadingNodeTests
 	[TestMethod]
 	public void ClosingSequencesWithAnythingButTabsOrSpacesFollowingItBecomeContentsOfTheHeading()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		var actual = parser.Parse(
 			"### foo ### b\n"
@@ -295,7 +295,7 @@ public class HeadingNodeTests
 	[TestMethod]
 	public void ClosingSequencesMustBePreceededByASpaceOrTab()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		var actual = parser.Parse(
 			"# foo#\n"
@@ -317,7 +317,7 @@ public class HeadingNodeTests
 	[TestMethod]
 	public void BackslashEscapedHeadingCharactersDoNotCountAsPartOfTheClosingSequence()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		var actual = parser.Parse(
 			"### foo \\###\n" +
@@ -343,7 +343,7 @@ public class HeadingNodeTests
 	[TestMethod]
 	public void HeadingsDoNotNeedBlankLinesSurroundingThem()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		var actual = parser.Parse(
 			"****\n" +
@@ -369,7 +369,7 @@ public class HeadingNodeTests
 	[TestMethod]
 	public void HeadingsCanInterruptParagraphs()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		var actual = parser.Parse(
 			"Foo bar\n" +
@@ -395,7 +395,7 @@ public class HeadingNodeTests
 	[TestMethod]
 	public void HeadingsCanBeEmpty()
 	{
-		var parser = new MDASTParser();
+		var parser = new MarkdownParser();
 
 		var actual = parser.Parse(
 			"##\n" +

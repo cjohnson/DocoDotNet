@@ -13,7 +13,7 @@ internal partial class HeadingNodeParser : IParser<HeadingNode>
 	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30 Specification.</see>
 	/// </summary>
 	[GeneratedRegex(@"^(?:(?: {0,3}|\t{0,3})(#{1,6})(?: +|\t+|$))(?:([^#\n].*?)(?: +|\t+|$))?(?:#*)?(?: *|\t*)$", RegexOptions.Multiline)]
-	internal static partial Regex ATXHeadingRegex();
+	private static partial Regex ATXHeadingRegex();
 
 	/// <summary>
 	/// Attempts to parse an <see href="https://spec.commonmark.org/0.30/#atx-headings">ATX Heading</see> from the given string line 
