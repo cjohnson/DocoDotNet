@@ -1,4 +1,6 @@
-﻿namespace MDASTDotNet.Parser;
+﻿using MDASTDotNet.LeafBlocks;
+
+namespace MDASTDotNet.Parser;
 
 /// <summary>
 /// General parsing interface, defining an interface for trying to deserialize a string target (a line or snippet)
@@ -8,7 +10,7 @@
 /// If the parse operation is a failure, null is returned.
 /// </summary>
 /// <typeparam name="T">The type of model that the parser returns on success.</typeparam>
-internal interface IParser<T>
+internal interface IParser
 {
 	/// <summary>
 	/// Performs a parse operation with the <paramref name="target"/> as the input text.
@@ -18,5 +20,5 @@ internal interface IParser<T>
 	/// </summary>
 	/// <param name="target">The string target to try to deserialize</param>
 	/// <returns></returns>
-	public T? Parse(string target);
+	public INode? Parse(string target);
 }

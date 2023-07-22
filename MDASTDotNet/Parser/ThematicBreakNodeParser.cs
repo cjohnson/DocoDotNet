@@ -6,7 +6,7 @@ namespace MDASTDotNet.Parser;
 /// <summary>
 /// Parser of ThematicBreakNode according to the <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30 Specification.</see>
 /// </summary>
-internal partial class ThematicBreakNodeParser : IParser<ThematicBreakNode>
+internal partial class ThematicBreakNodeParser : IParser
 {
 	[GeneratedRegex(@"^ {0,3}(?:- *){3,}$")]
 	private static partial Regex HyphenRegex();
@@ -23,7 +23,7 @@ internal partial class ThematicBreakNodeParser : IParser<ThematicBreakNode>
 	/// </summary>
 	/// <param name="target">The target line or section to try to parse.</param>
 	/// <returns>A ThematicBreakNode on success, and null on failure.</returns>
-	public ThematicBreakNode? Parse(string target)
+	public INode? Parse(string target)
 	{
 		var match = AsteriskRegex().Match(target);
 		if (match.Success)
