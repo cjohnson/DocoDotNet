@@ -195,4 +195,28 @@ public class MDASTHeadingTests
 
 		Assert.AreEqual(expected, actual);
 	}
+
+	/// <summary>
+	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see>: Implementation of
+	/// <see href="https://spec.commonmark.org/0.30/#example-71">Heading Example 71</see>
+	/// </summary>
+	[TestMethod]
+	public void ClosingSequencesAreAllowed()
+	{
+		var parser = new MDASTParser();
+
+		var actual = parser.Parse(
+			"## foo ##\n" +
+			"  ###   bar    ###\n"
+		);
+
+		var expected = new MDASTRootNode();
+		expected.Children.AddRange(new List<MDASTNode>
+		{
+			new MDASTHeadingNode(level: 2, text: new MDASTTextNode("foo")),
+			new MDASTHeadingNode(level: 3, text: new MDASTTextNode("bar")),
+		});
+
+		Assert.AreEqual(expected, actual);
+	}
 }
