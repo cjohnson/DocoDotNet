@@ -4,7 +4,7 @@ using MDASTDotNet.Parser;
 namespace MDASTDotNet.Test;
 
 /// <summary>
-/// Tests for <see cref="MarkdownParser"/> parsing of <see cref="MDASTThematicBreakNode"/> nodes.
+/// Tests for <see cref="MarkdownParser"/> parsing of <see cref="ThematicBreakNode"/> nodes.
 /// </summary>
 [TestClass]
 public class MDASTThematicBreakTests
@@ -27,9 +27,9 @@ public class MDASTThematicBreakTests
 		var expected = new RootNode();
 		expected.Children.AddRange(new List<INode>
 		{
-			new MDASTThematicBreakNode(),
-			new MDASTThematicBreakNode(),
-			new MDASTThematicBreakNode(),
+			new ThematicBreakNode(),
+			new ThematicBreakNode(),
+			new ThematicBreakNode(),
 		});
 		
 		Assert.AreEqual(expected, actual);
@@ -109,9 +109,9 @@ public class MDASTThematicBreakTests
 		var expected = new RootNode();
 		expected.Children.AddRange(new List<INode>
 		{
-			new MDASTThematicBreakNode(),
-			new MDASTThematicBreakNode(),
-			new MDASTThematicBreakNode(),
+			new ThematicBreakNode(),
+			new ThematicBreakNode(),
+			new ThematicBreakNode(),
 		});
 
 		Assert.AreEqual(expected, actual);
@@ -163,7 +163,7 @@ public class MDASTThematicBreakTests
 		);
 
 		var expected = new RootNode();
-		expected.Children.Add(new MDASTThematicBreakNode());
+		expected.Children.Add(new ThematicBreakNode());
 
 		Assert.AreEqual(expected, actual);
 	}
@@ -189,9 +189,9 @@ public class MDASTThematicBreakTests
 		var expected = new RootNode();
 		expected.Children.AddRange(new List<INode>
 		{
-			new MDASTThematicBreakNode(),
-			new MDASTThematicBreakNode(),
-			new MDASTThematicBreakNode(),
+			new ThematicBreakNode(),
+			new ThematicBreakNode(),
+			new ThematicBreakNode(),
 		});
 
 		Assert.AreEqual(expected, actual);
@@ -211,7 +211,7 @@ public class MDASTThematicBreakTests
 		);
 
 		var expected = new RootNode();
-		expected.Children.Add(new MDASTThematicBreakNode());
+		expected.Children.Add(new ThematicBreakNode());
 
 		Assert.AreEqual(expected, actual);
 	}
@@ -288,7 +288,7 @@ public class MDASTThematicBreakTests
 		expected.Children.AddRange(new List<INode>
 		{
 			new TextNode("- foo"),
-			new MDASTThematicBreakNode(),
+			new ThematicBreakNode(),
 			new TextNode("- bar"),
 		});
 
@@ -314,7 +314,7 @@ public class MDASTThematicBreakTests
 		expected.Children.AddRange(new List<INode>
 		{
 			new TextNode("Foo"),
-			new MDASTThematicBreakNode(),
+			new ThematicBreakNode(),
 			new TextNode("bar"),
 		});
 
@@ -342,7 +342,7 @@ public class MDASTThematicBreakTests
 		expected.Children.AddRange(new List<INode>
 		{
 			new TextNode("Foo"),
-			new MDASTThematicBreakNode(),
+			new ThematicBreakNode(),
 			new TextNode("bar"),
 		});
 
@@ -370,7 +370,7 @@ public class MDASTThematicBreakTests
 		expected.Children.AddRange(new List<INode>
 		{
 			new TextNode("* Foo"),
-			new MDASTThematicBreakNode(),
+			new ThematicBreakNode(),
 			new TextNode("* Bar"),
 		});
 

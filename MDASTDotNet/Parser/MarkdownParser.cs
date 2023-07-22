@@ -26,7 +26,7 @@ public class MarkdownParser : IParser<RootNode>
                 continue;
             }
 
-            var thematicBreak = MDASTThematicBreakNode.TryParse(line);
+            var thematicBreak = ThematicBreakNode.TryParse(line);
             if (thematicBreak != null)
             {
                 root.Children.Add(thematicBreak);

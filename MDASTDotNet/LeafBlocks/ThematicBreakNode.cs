@@ -4,12 +4,15 @@ using MDASTDotNet.Extensions;
 
 namespace MDASTDotNet.LeafBlocks;
 
+/// <summary>
+/// A Thematic Break node represents a thematic break (traditionally a &lt;br/&gt; tag in HTML).
+/// </summary>
 [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-public class MDASTThematicBreakNode : INode
+public class ThematicBreakNode : INode
 {
 	public string Type { get; init; } = "thematicBreak";
 
-	public MDASTThematicBreakNode()
+	public ThematicBreakNode()
 	{ }
 
 	internal enum ParsingState
@@ -20,7 +23,7 @@ public class MDASTThematicBreakNode : INode
 
 	public override bool Equals(object? obj)
 	{
-		return obj is MDASTThematicBreakNode;
+		return obj is ThematicBreakNode;
 	}
 
 	public override int GetHashCode()
@@ -28,7 +31,7 @@ public class MDASTThematicBreakNode : INode
 		return Type.GetHashCode();
 	}
 
-	internal static MDASTThematicBreakNode? TryParse(string target)
+	internal static ThematicBreakNode? TryParse(string target)
 	{
 		var parsingState = ParsingState.Indentation;
 
@@ -96,6 +99,6 @@ public class MDASTThematicBreakNode : INode
 			return null;
 		}
 
-		return new MDASTThematicBreakNode();
+		return new ThematicBreakNode();
 	}
 }

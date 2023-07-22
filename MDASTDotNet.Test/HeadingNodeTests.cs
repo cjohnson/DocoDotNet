@@ -354,9 +354,9 @@ public class HeadingNodeTests
 		var expected = new RootNode();
 		expected.Children.AddRange(new List<INode>
 		{
-			new MDASTThematicBreakNode(),
+			new ThematicBreakNode(),
 			new HeadingNode(level: 2, text: new TextNode("foo")),
-			new MDASTThematicBreakNode(),
+			new ThematicBreakNode(),
 		});
 
 		Assert.AreEqual(expected, actual);
