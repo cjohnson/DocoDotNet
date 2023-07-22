@@ -51,7 +51,7 @@ public class MDASTHeadingTests
 		var parser = new MDASTParser();
 
 		var actual = parser.Parse(
-			"####### foo"	
+			"####### foo"
 		);
 
 		var expected = new MDASTRootNode();
@@ -215,6 +215,200 @@ public class MDASTHeadingTests
 		{
 			new MDASTHeadingNode(level: 2, text: new MDASTTextNode("foo")),
 			new MDASTHeadingNode(level: 3, text: new MDASTTextNode("bar")),
+		});
+
+		Assert.AreEqual(expected, actual);
+	}
+
+	/// <summary>
+	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see>: Implementation of
+	/// <see href="https://spec.commonmark.org/0.30/#example-72">Heading Example 72</see>
+	/// </summary>
+	[TestMethod]
+	public void ClosingSequencesDoNotNeedToMatchHeaderLevel()
+	{
+		var parser = new MDASTParser();
+
+		var actual = parser.Parse(
+			"# foo ##################################\n" +
+			"##### foo ##\n"
+		);
+
+		var expected = new MDASTRootNode();
+		expected.Children.AddRange(new List<MDASTNode>
+		{
+			new MDASTHeadingNode(level: 1, text: new MDASTTextNode("foo")),
+			new MDASTHeadingNode(level: 5, text: new MDASTTextNode("foo")),
+		});
+
+		Assert.AreEqual(expected, actual);
+	}
+
+	/// <summary>
+	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see>: Implementation of
+	/// <see href="https://spec.commonmark.org/0.30/#example-73">Heading Example 73</see>
+	/// </summary>
+	[TestMethod]
+	public void SpacesOrTabsAreAllowedAfterTheClosingSequence()
+	{
+		var parser = new MDASTParser();
+
+		var actual = parser.Parse(
+			"### foo ###     \n"
+		);
+
+		var expected = new MDASTRootNode();
+		expected.Children.AddRange(new List<MDASTNode>
+		{
+			new MDASTHeadingNode(level: 3, text: new MDASTTextNode("foo")),
+		});
+
+		Assert.AreEqual(expected, actual);
+	}
+
+	/// <summary>
+	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see>: Implementation of
+	/// <see href="https://spec.commonmark.org/0.30/#example-74">Heading Example 74</see>
+	/// </summary>
+	[TestMethod]
+	public void ClosingSequencesWithAnythingButTabsOrSpacesFollowingItBecomeContentsOfTheHeading()
+	{
+		var parser = new MDASTParser();
+
+		var actual = parser.Parse(
+			"### foo ### b\n"
+		);
+
+		var expected = new MDASTRootNode();
+		expected.Children.AddRange(new List<MDASTNode>
+		{
+			new MDASTHeadingNode(level: 3, text: new MDASTTextNode("foo ### b")),
+		});
+
+		Assert.AreEqual(expected, actual);
+	}
+
+	/// <summary>
+	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see>: Implementation of
+	/// <see href="https://spec.commonmark.org/0.30/#example-75">Heading Example 75</see>
+	/// </summary>
+	[TestMethod]
+	public void ClosingSequencesMustBePreceededByASpaceOrTab()
+	{
+		var parser = new MDASTParser();
+
+		var actual = parser.Parse(
+			"# foo#\n"
+		);
+
+		var expected = new MDASTRootNode();
+		expected.Children.AddRange(new List<MDASTNode>
+		{
+			new MDASTHeadingNode(level: 1, text: new MDASTTextNode("foo#")),
+		});
+
+		Assert.AreEqual(expected, actual);
+	}
+
+	/// <summary>
+	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see>: Implementation of
+	/// <see href="https://spec.commonmark.org/0.30/#example-76">Heading Example 76</see>
+	/// </summary>
+	[TestMethod]
+	public void BackslashEscapedHeadingCharactersDoNotCountAsPartOfTheClosingSequence()
+	{
+		var parser = new MDASTParser();
+
+		var actual = parser.Parse(
+			"### foo \\###\n" +
+			"## foo #\\##\n" +
+			"# foo \\#\n"
+		);
+
+		var expected = new MDASTRootNode();
+		expected.Children.AddRange(new List<MDASTNode>
+		{
+			new MDASTHeadingNode(level: 3, text: new MDASTTextNode("foo ###")),
+			new MDASTHeadingNode(level: 2, text: new MDASTTextNode("foo ###")),
+			new MDASTHeadingNode(level: 1, text: new MDASTTextNode("foo #")),
+		});
+
+		Assert.AreEqual(expected, actual);
+	}
+
+	/// <summary>
+	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see>: Implementation of
+	/// <see href="https://spec.commonmark.org/0.30/#example-77">Heading Example 77</see>
+	/// </summary>
+	[TestMethod]
+	public void HeadingsDoNotNeedBlankLinesSurroundingThem()
+	{
+		var parser = new MDASTParser();
+
+		var actual = parser.Parse(
+			"****\n" +
+			"## foo \n" +
+			"****"
+		);
+
+		var expected = new MDASTRootNode();
+		expected.Children.AddRange(new List<MDASTNode>
+		{
+			new MDASTThematicBreakNode(),
+			new MDASTHeadingNode(level: 2, text: new MDASTTextNode("foo")),
+			new MDASTThematicBreakNode(),
+		});
+
+		Assert.AreEqual(expected, actual);
+	}
+
+	/// <summary>
+	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see>: Implementation of
+	/// <see href="https://spec.commonmark.org/0.30/#example-78">Heading Example 78</see>
+	/// </summary>
+	[TestMethod]
+	public void HeadingsCanInterruptParagraphs()
+	{
+		var parser = new MDASTParser();
+
+		var actual = parser.Parse(
+			"Foo bar\n" +
+			"# baz\n" +
+			"Bar foo"
+		);
+
+		var expected = new MDASTRootNode();
+		expected.Children.AddRange(new List<MDASTNode>
+		{
+			new MDASTTextNode("Foo bar"),
+			new MDASTHeadingNode(level: 1, text: new MDASTTextNode("baz")),
+			new MDASTTextNode("Bar foo"),
+		});
+
+		Assert.AreEqual(expected, actual);
+	}
+
+	/// <summary>
+	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see>: Implementation of
+	/// <see href="https://spec.commonmark.org/0.30/#example-79">Heading Example 79</see>
+	/// </summary>
+	[TestMethod]
+	public void HeadingsCanBeEmpty()
+	{
+		var parser = new MDASTParser();
+
+		var actual = parser.Parse(
+			"##\n" +
+			"#\n" +
+			"### ###"
+		);
+
+		var expected = new MDASTRootNode();
+		expected.Children.AddRange(new List<MDASTNode>
+		{
+			new MDASTHeadingNode(level: 2, text: new MDASTTextNode("")),
+			new MDASTHeadingNode(level: 1, text: new MDASTTextNode("")),
+			new MDASTHeadingNode(level: 3, text: new MDASTTextNode("")),
 		});
 
 		Assert.AreEqual(expected, actual);

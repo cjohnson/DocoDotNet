@@ -48,7 +48,7 @@ namespace MDASTDotNet.LeafBlocks
 			RequiredSpaceOrTab,
 		}
 
-		[GeneratedRegex("^(?:\\s{0,3})(#{1,6})(?:\\s*)([^#]+?)(?:\\s*)(?:#*)(?:\\s*)$", RegexOptions.Multiline)]
+		[GeneratedRegex(@"^(?:(?: {0,3}|\t{0,3})(#{1,6})(?: +|\t+|$))(?:([^#\n].*?)(?: +|\t+|$))?(?:#*)?(?: *|\t*)$", RegexOptions.Multiline)]
 		internal static partial Regex HeadingRegex();
 
 		internal static MDASTHeadingNode? TryParse(string target)
