@@ -32,10 +32,8 @@ internal partial class ATXHeadingNodeParser : IParser
 	/// <returns>An MDASTHeadingNode on success, and null on failure.</returns>
 	public INode? Parse(string target)
 	{
-		var headingRegex = ATXHeadingRegex();
-
-		var match = headingRegex.Match(target);
-		if (!match.Success)
+		var match = ATXHeadingRegex().Match(target);
+		if (!match.Success || match.Groups.Count < 3)
 		{
 			return null;
 		}
