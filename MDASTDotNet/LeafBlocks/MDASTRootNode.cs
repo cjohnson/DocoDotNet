@@ -3,14 +3,16 @@
 namespace MDASTDotNet.LeafBlocks;
 
 [JsonObject(MemberSerialization.OptIn)]
-public class MDASTRootNode : MDASTNode
+public class MDASTRootNode : INode
 {
-	[JsonProperty("children")]
-	public List<MDASTNode> Children { get; set; }
+	public string Type { get; init; } = "root";
 
-	public MDASTRootNode() : base("root")
+	[JsonProperty("children")]
+	public List<INode> Children { get; set; }
+
+	public MDASTRootNode()
 	{
-		Children = new List<MDASTNode>();
+		Children = new List<INode>();
 	}
 
 	public override bool Equals(object? obj)

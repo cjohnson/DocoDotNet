@@ -28,7 +28,7 @@ public class HeadingNodeTests
 		);
 
 		var expected = new MDASTRootNode();
-		expected.Children.AddRange(new List<MDASTNode>
+		expected.Children.AddRange(new List<INode>
 		{
 			new HeadingNode(level: 1, text: new MDASTTextNode("foo")),
 			new HeadingNode(level: 2, text: new MDASTTextNode("foo")),
@@ -76,7 +76,7 @@ public class HeadingNodeTests
 		);
 
 		var expected = new MDASTRootNode();
-		expected.Children.AddRange(new List<MDASTNode>
+		expected.Children.AddRange(new List<INode>
 		{
 			new MDASTTextNode("#5 bolt"),
 			new MDASTTextNode("#hashtag"),
@@ -158,7 +158,7 @@ public class HeadingNodeTests
 		);
 
 		var expected = new MDASTRootNode();
-		expected.Children.AddRange(new List<MDASTNode>
+		expected.Children.AddRange(new List<INode>
 		{
 			new HeadingNode(level: 3, text: new MDASTTextNode("foo")),
 			new HeadingNode(level: 2, text: new MDASTTextNode("foo")),
@@ -186,7 +186,7 @@ public class HeadingNodeTests
 		);
 
 		var expected = new MDASTRootNode();
-		expected.Children.AddRange(new List<MDASTNode>
+		expected.Children.AddRange(new List<INode>
 		{
 			new MDASTTextNode("    # foo"),
 			new MDASTTextNode("foo"),
@@ -211,7 +211,7 @@ public class HeadingNodeTests
 		);
 
 		var expected = new MDASTRootNode();
-		expected.Children.AddRange(new List<MDASTNode>
+		expected.Children.AddRange(new List<INode>
 		{
 			new HeadingNode(level: 2, text: new MDASTTextNode("foo")),
 			new HeadingNode(level: 3, text: new MDASTTextNode("bar")),
@@ -235,7 +235,7 @@ public class HeadingNodeTests
 		);
 
 		var expected = new MDASTRootNode();
-		expected.Children.AddRange(new List<MDASTNode>
+		expected.Children.AddRange(new List<INode>
 		{
 			new HeadingNode(level: 1, text: new MDASTTextNode("foo")),
 			new HeadingNode(level: 5, text: new MDASTTextNode("foo")),
@@ -258,7 +258,7 @@ public class HeadingNodeTests
 		);
 
 		var expected = new MDASTRootNode();
-		expected.Children.AddRange(new List<MDASTNode>
+		expected.Children.AddRange(new List<INode>
 		{
 			new HeadingNode(level: 3, text: new MDASTTextNode("foo")),
 		});
@@ -280,7 +280,7 @@ public class HeadingNodeTests
 		);
 
 		var expected = new MDASTRootNode();
-		expected.Children.AddRange(new List<MDASTNode>
+		expected.Children.AddRange(new List<INode>
 		{
 			new HeadingNode(level: 3, text: new MDASTTextNode("foo ### b")),
 		});
@@ -302,7 +302,7 @@ public class HeadingNodeTests
 		);
 
 		var expected = new MDASTRootNode();
-		expected.Children.AddRange(new List<MDASTNode>
+		expected.Children.AddRange(new List<INode>
 		{
 			new HeadingNode(level: 1, text: new MDASTTextNode("foo#")),
 		});
@@ -326,7 +326,7 @@ public class HeadingNodeTests
 		);
 
 		var expected = new MDASTRootNode();
-		expected.Children.AddRange(new List<MDASTNode>
+		expected.Children.AddRange(new List<INode>
 		{
 			new HeadingNode(level: 3, text: new MDASTTextNode("foo ###")),
 			new HeadingNode(level: 2, text: new MDASTTextNode("foo ###")),
@@ -352,7 +352,7 @@ public class HeadingNodeTests
 		);
 
 		var expected = new MDASTRootNode();
-		expected.Children.AddRange(new List<MDASTNode>
+		expected.Children.AddRange(new List<INode>
 		{
 			new MDASTThematicBreakNode(),
 			new HeadingNode(level: 2, text: new MDASTTextNode("foo")),
@@ -378,7 +378,7 @@ public class HeadingNodeTests
 		);
 
 		var expected = new MDASTRootNode();
-		expected.Children.AddRange(new List<MDASTNode>
+		expected.Children.AddRange(new List<INode>
 		{
 			new MDASTTextNode("Foo bar"),
 			new HeadingNode(level: 1, text: new MDASTTextNode("baz")),
@@ -404,7 +404,7 @@ public class HeadingNodeTests
 		);
 
 		var expected = new MDASTRootNode();
-		expected.Children.AddRange(new List<MDASTNode>
+		expected.Children.AddRange(new List<INode>
 		{
 			new HeadingNode(level: 2, text: new MDASTTextNode("")),
 			new HeadingNode(level: 1, text: new MDASTTextNode("")),

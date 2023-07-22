@@ -5,9 +5,11 @@ using MDASTDotNet.Extensions;
 namespace MDASTDotNet.LeafBlocks;
 
 [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-public class MDASTThematicBreakNode : MDASTNode
+public class MDASTThematicBreakNode : INode
 {
-	public MDASTThematicBreakNode() : base("thematicBreak")
+	public string Type { get; init; } = "thematicBreak";
+
+	public MDASTThematicBreakNode()
 	{ }
 
 	internal enum ParsingState

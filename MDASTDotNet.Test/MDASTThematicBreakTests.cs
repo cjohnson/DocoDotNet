@@ -25,7 +25,7 @@ public class MDASTThematicBreakTests
 		);
 
 		var expected = new MDASTRootNode();
-		expected.Children.AddRange(new List<MDASTNode>
+		expected.Children.AddRange(new List<INode>
 		{
 			new MDASTThematicBreakNode(),
 			new MDASTThematicBreakNode(),
@@ -54,7 +54,7 @@ public class MDASTThematicBreakTests
 		// This will fail eventually when MDASTTextNode parsing is fixed. The parser will read the text as one
 		// all-inclusive MDASTTextNode, with text "+++\n===".
 		var expected = new MDASTRootNode();
-		expected.Children.AddRange(new List<MDASTNode>
+		expected.Children.AddRange(new List<INode>
 		{
 			new MDASTTextNode("+++"),
 			new MDASTTextNode("==="),
@@ -81,7 +81,7 @@ public class MDASTThematicBreakTests
 		// This will fail eventually when MDASTTextNode parsing is fixed. The parser will read the text as one
 		// all-inclusive MDASTTextNode, as https://spec.commonmark.org/0.30/#example-46 shows.
 		var expected = new MDASTRootNode();
-		expected.Children.AddRange(new List<MDASTNode>
+		expected.Children.AddRange(new List<INode>
 		{
 			new MDASTTextNode("--"),
 			new MDASTTextNode("**"),
@@ -107,7 +107,7 @@ public class MDASTThematicBreakTests
 		);
 
 		var expected = new MDASTRootNode();
-		expected.Children.AddRange(new List<MDASTNode>
+		expected.Children.AddRange(new List<INode>
 		{
 			new MDASTThematicBreakNode(),
 			new MDASTThematicBreakNode(),
@@ -138,7 +138,7 @@ public class MDASTThematicBreakTests
 		// This will fail eventually when MDASTTextNode parsing is fixed. The parser will read the text as one
 		// all-inclusive MDASTTextNode, as https://spec.commonmark.org/0.30/#example-49 shows.
 		var expected = new MDASTRootNode();
-		expected.Children.AddRange(new List<MDASTNode>
+		expected.Children.AddRange(new List<INode>
 		{
 			new MDASTTextNode("Foo"),
 			new MDASTTextNode("    ***"),
@@ -187,7 +187,7 @@ public class MDASTThematicBreakTests
 		);
 
 		var expected = new MDASTRootNode();
-		expected.Children.AddRange(new List<MDASTNode>
+		expected.Children.AddRange(new List<INode>
 		{
 			new MDASTThematicBreakNode(),
 			new MDASTThematicBreakNode(),
@@ -236,7 +236,7 @@ public class MDASTThematicBreakTests
 		);
 
 		var expected = new MDASTRootNode();
-		expected.Children.AddRange(new List<MDASTNode>
+		expected.Children.AddRange(new List<INode>
 		{
 			new MDASTTextNode("_ _ _ _ a"),
 			new MDASTTextNode("a------"),
@@ -285,7 +285,7 @@ public class MDASTThematicBreakTests
 		// This will fail eventually when MDASTListNode is added. When this fails due to this reason,
 		// simply change the output expectation to use MDASTListNode (or the theoretical equivalent).
 		var expected = new MDASTRootNode();
-		expected.Children.AddRange(new List<MDASTNode>
+		expected.Children.AddRange(new List<INode>
 		{
 			new MDASTTextNode("- foo"),
 			new MDASTThematicBreakNode(),
@@ -311,7 +311,7 @@ public class MDASTThematicBreakTests
 		);
 
 		var expected = new MDASTRootNode();
-		expected.Children.AddRange(new List<MDASTNode>
+		expected.Children.AddRange(new List<INode>
 		{
 			new MDASTTextNode("Foo"),
 			new MDASTThematicBreakNode(),
@@ -339,7 +339,7 @@ public class MDASTThematicBreakTests
 		// This will fail eventually when Setext Header functionality is added. When this fails due
 		// to this reason, simply change the output expectation to use MDASTHeadingNode.
 		var expected = new MDASTRootNode();
-		expected.Children.AddRange(new List<MDASTNode>
+		expected.Children.AddRange(new List<INode>
 		{
 			new MDASTTextNode("Foo"),
 			new MDASTThematicBreakNode(),
@@ -367,7 +367,7 @@ public class MDASTThematicBreakTests
 		// This will fail eventually when MDASTListNode is added. When this fails due to this reason,
 		// simply change the output expectation to use MDASTListNode (or the theoretical equivalent).
 		var expected = new MDASTRootNode();
-		expected.Children.AddRange(new List<MDASTNode>
+		expected.Children.AddRange(new List<INode>
 		{
 			new MDASTTextNode("* Foo"),
 			new MDASTThematicBreakNode(),
@@ -394,7 +394,7 @@ public class MDASTThematicBreakTests
 		// This will fail eventually when MDASTListNode is added. When this fails due to this reason,
 		// simply change the output expectation to use MDASTListNode (or the theoretical equivalent).
 		var expected = new MDASTRootNode();
-		expected.Children.AddRange(new List<MDASTNode>
+		expected.Children.AddRange(new List<INode>
 		{
 			new MDASTTextNode("- Foo"), // This will become list -> list item
 			new MDASTTextNode("- * * *"), // This will become list -> list item -> thematic break

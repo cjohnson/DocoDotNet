@@ -4,12 +4,14 @@ using Newtonsoft.Json;
 namespace MDASTDotNet.LeafBlocks;
 
 [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
-public class MDASTTextNode : MDASTNode
+public class MDASTTextNode : INode
 {
+	public string Type { get; init; } = "text";
+
 	[JsonProperty("content")]
 	public string? Content { get; set; }
 
-	public MDASTTextNode(string? content) : base("text")
+	public MDASTTextNode(string? content)
 	{
 		Content = ApplyPunctuationBackslashEscapes(content);
 	}

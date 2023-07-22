@@ -16,8 +16,10 @@ namespace MDASTDotNet.LeafBlocks;
 /// The heading level is equal to the number of # characters in the opening sequence.
 /// </summary>
 [JsonObject(MemberSerialization.OptIn)]
-public partial class HeadingNode : MDASTNode
+public partial class HeadingNode : INode
 {
+	public string Type { get; init; } = "heading";
+
 	/// <summary>
 	/// The level of the header. Traditionally, this corresponds to the HTML header level.
 	/// <br/>
@@ -55,7 +57,7 @@ public partial class HeadingNode : MDASTNode
 	/// <param name="text">The text content of the heading.</param>
 	/// <exception cref="ArgumentException"></exception>
 	[JsonConstructor]
-	public HeadingNode(int level, MDASTTextNode? text) : base("heading")
+	public HeadingNode(int level, MDASTTextNode? text)
 	{
 		if (level < 0)
 		{
