@@ -6,7 +6,7 @@ namespace MDASTDotNet.Parser;
 /// <summary>
 /// Parses a Markdown-formatted string according to the <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30 Specification.</see>.
 /// </summary>
-public class MarkdownParser : IParser<MDASTRootNode>
+public class MarkdownParser : IParser<RootNode>
 {
     HeadingNodeParser headingNodeParser = new();
 
@@ -15,9 +15,9 @@ public class MarkdownParser : IParser<MDASTRootNode>
     /// </summary>
     /// <param name="markdown">The markdown-formatted string</param>
     /// <returns>The MDAST root node</returns>
-    public MDASTRootNode? Parse(string markdown)
+    public RootNode? Parse(string markdown)
     {
-        var root = new MDASTRootNode();
+        var root = new RootNode();
 
         foreach (var line in markdown.Lines())
         {

@@ -2,22 +2,26 @@
 
 namespace MDASTDotNet.LeafBlocks;
 
+/// <summary>
+/// A Root Node is the root container of all of the nodes in the MDAST tree. In a traditional sense, the root node is similar to an
+/// entire document. Its children are all of the elements of the document.
+/// </summary>
 [JsonObject(MemberSerialization.OptIn)]
-public class MDASTRootNode : INode
+public class RootNode : INode
 {
 	public string Type { get; init; } = "root";
 
 	[JsonProperty("children")]
 	public List<INode> Children { get; set; }
 
-	public MDASTRootNode()
+	public RootNode()
 	{
 		Children = new List<INode>();
 	}
 
 	public override bool Equals(object? obj)
 	{
-		return obj is MDASTRootNode node &&
+		return obj is RootNode node &&
 			   Type == node.Type &&
 			   Children.SequenceEqual(node.Children);
 	}

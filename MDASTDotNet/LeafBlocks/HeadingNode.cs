@@ -3,7 +3,7 @@
 namespace MDASTDotNet.LeafBlocks;
 
 /// <summary>
-/// An MDAST Heading Node is a data model representation of the <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see> leaf node
+/// A Heading Node is a data model representation of the <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see> leaf node
 /// <see href="https://spec.commonmark.org/0.30/#atx-headings">ATX Heading</see>.
 /// <br/><br/>
 /// Per the <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see> spec:
