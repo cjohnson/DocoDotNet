@@ -7,7 +7,7 @@ namespace MDASTDotNet.Test;
 /// Tests for <see cref="MarkdownParser"/> parsing of <see cref="HeadingNode"/>.
 /// </summary>
 [TestClass]
-public class ATXHeadingNodeParsingTests
+public class AtxHeadingNodeParsingTests
 {
 	/// <summary>
 	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30</see>: Implementation of
@@ -81,6 +81,8 @@ public class ATXHeadingNodeParsingTests
 			new TextNode("#5 bolt"),
 			new TextNode("#hashtag"),
 		});
+		
+		Assert.AreEqual(expected, actual);
 	}
 
 	/// <summary>
@@ -293,7 +295,7 @@ public class ATXHeadingNodeParsingTests
 	/// <see href="https://spec.commonmark.org/0.30/#example-75">Heading Example 75</see>
 	/// </summary>
 	[TestMethod]
-	public void ClosingSequencesMustBePreceededByASpaceOrTab()
+	public void ClosingSequencesMustBePrecededByASpaceOrTab()
 	{
 		var parser = new MarkdownParser();
 

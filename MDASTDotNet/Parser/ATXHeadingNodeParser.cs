@@ -15,14 +15,14 @@ namespace MDASTDotNet.Parser;
 /// indentation. The raw contents of the heading are stripped of leading and trailing space or tabs before being parsed as inline content. 
 /// The heading level is equal to the number of # characters in the opening sequence.
 /// </summary>
-internal partial class ATXHeadingNodeParser : IParser
+internal partial class AtxHeadingNodeParser : IParser
 {
 	/// <summary>
 	/// Regex that matches an <see href="https://spec.commonmark.org/0.30/#atx-headings">ATX Heading</see> according to the
 	/// <see href="https://spec.commonmark.org/0.30/">CommonMark 0.30 Specification.</see>
 	/// </summary>
-	[GeneratedRegex(@"^(?:(?: {0,3}|\t{0,3})(#{1,6})(?: +|\t+|$))(?:([^#\n].*?)(?: +|\t+|$))?(?:#*)?(?: *|\t*)$", RegexOptions.Multiline)]
-	private static partial Regex ATXHeadingRegex();
+	[GeneratedRegex("^(?:(?: {0,3}|\\t{0,3})(#{1,6})(?: +|\\t+|$))(?:([^#\\n].*?)(?: +|\\t+|$))?(?:#*)?(?: *|\\t*)$", RegexOptions.Multiline)]
+	private static partial Regex AtxHeadingRegex();
 
 	/// <summary>
 	/// Attempts to parse an <see href="https://spec.commonmark.org/0.30/#atx-headings">ATX Heading</see> from the given remaining content lines
@@ -37,7 +37,7 @@ internal partial class ATXHeadingNodeParser : IParser
 			return null;
 		}
 
-		var match = ATXHeadingRegex().Match(contentLines.First());
+		var match = AtxHeadingRegex().Match(contentLines.First());
 		if (!match.Success || match.Groups.Count < 3)
 		{
 			return null;

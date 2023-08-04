@@ -8,7 +8,7 @@ namespace MDASTDotNet.Parser;
 /// </summary>
 public class MarkdownParser
 {
-	public List<IParser> Parsers { get; set; }
+	private List<IParser> Parsers { get; }
 
     public MarkdownParser()
     {
@@ -33,27 +33,24 @@ public class MarkdownParser
 
         while (lines.Any())
         {
-			foreach (var parser in Parsers)
-			{
-				var node = parser.Parse(lines);
-				if (node != null)
-				{
-					root.Children.Add(node);
-					break;
-				}
-			}
-		}
+	        foreach (var node in Parsers.Select(parser => parser.Parse(lines)).Where(node => node != null))
+	        {
+		        if (node != null) root.Children.Add(node);
+		        break;
+	        }
+        }
 
 		return root;
     }
 
+    // ReSharper disable once MemberCanBePrivate.Global
     public static class Presets
     {
         public static List<IParser> CommonMark3_0 => new()
         {
             new BlankLineParser(),
             new ThematicBreakNodeParser(),
-            new ATXHeadingNodeParser(),
+            new AtxHeadingNodeParser(),
             new TextNodeParser(),
         };
     }

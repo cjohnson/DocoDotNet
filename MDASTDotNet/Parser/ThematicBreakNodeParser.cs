@@ -45,12 +45,8 @@ internal partial class ThematicBreakNodeParser : IParser
 		}
 
 		match = UnderscoreRegex().Match(contentLines.First());
-		if (match.Success)
-		{
-			contentLines.RemoveAt(0);
-			return new ThematicBreakNode();
-		}
-
-		return null;
+		if (!match.Success) return null;
+		contentLines.RemoveAt(0);
+		return new ThematicBreakNode();
 	}
 }

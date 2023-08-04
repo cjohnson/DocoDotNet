@@ -16,7 +16,7 @@ namespace MDASTDotNet.LeafBlocks;
 /// The heading level is equal to the number of # characters in the opening sequence.
 /// </summary>
 [JsonObject(MemberSerialization.OptIn)]
-public partial class HeadingNode : INode
+public class HeadingNode : INode
 {
 	public string Type { get; init; } = "heading";
 
@@ -36,7 +36,7 @@ public partial class HeadingNode : INode
 	/// In terms of CommonMark itself, the Level property simply corresponds to the number of hashtags (#) used prior to the Text content.
 	/// </summary>
 	[JsonProperty("level")]
-	public int Level { get; set; }
+	public int Level { get; }
 
 	/// <summary>
 	/// The text content of the header. This is the text that goes inside the HTML tag, in a traditional markdown use case.
@@ -46,7 +46,7 @@ public partial class HeadingNode : INode
 	/// In this example, Text = "My Content".
 	/// </summary>
 	[JsonProperty("text")]
-	public TextNode? Text { get; set; }
+	public TextNode? Text { get; }
 
 	/// <summary>
 	/// Construct a new MDASTHeadingNode.
@@ -59,18 +59,17 @@ public partial class HeadingNode : INode
 	[JsonConstructor]
 	public HeadingNode(int level, TextNode? text)
 	{
-		if (level < 0)
+		switch (level)
 		{
-			throw new ArgumentException("Heading Level cannot be less than 0.");
+			case < 0:
+				throw new ArgumentException("Heading Level cannot be less than 0.");
+			case > 6:
+				throw new ArgumentException("Heading level cannot be greater than 6.");
+			default:
+				Level = level;
+				Text = text;
+				break;
 		}
-
-		if (level > 6)
-		{
-			throw new ArgumentException("Heading level cannot be greater than 6.");
-		}
-
-		Level = level;
-		Text = text;
 	}
 
 	public override bool Equals(object? obj)

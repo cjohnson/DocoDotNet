@@ -12,7 +12,7 @@ public class RootNode : INode
 	public string Type { get; init; } = "root";
 
 	[JsonProperty("children")]
-	public List<INode> Children { get; set; }
+	public List<INode> Children { get; }
 
 	public RootNode()
 	{

@@ -16,7 +16,7 @@ public class TextNode : INode
 	/// The actual string text content.
 	/// </summary>
 	[JsonProperty("content")]
-	public string? Content { get; set; }
+	public string? Content { get; }
 
 	public TextNode(string? content)
 	{
