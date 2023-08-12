@@ -62,12 +62,17 @@ public partial class SetextHeadingNodeParser : IParser
             headerLines.Add(contentLine);
         }
 
+        if (contentLines.Count == headerLines.Count)
+        {
+            return null;
+        }
+
         contentLines.RemoveRange(0, headerLines.Count + 1);
         return new HeadingNode(headerLevel, new TextNode(string.Join('\n', headerLines)));
     }
 
-    [GeneratedRegex("=+")]
+    [GeneratedRegex("^=+$")]
     private static partial Regex PrimarySetextHeaderRegex();
-    [GeneratedRegex("-+")]
+    [GeneratedRegex("^-+$")]
     private static partial Regex SecondarySetextHeaderRegex();
 }

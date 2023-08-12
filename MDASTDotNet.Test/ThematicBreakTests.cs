@@ -48,11 +48,10 @@ public class ThematicBreakTests
 
 		var actual = parser.Parse(
 			"+++\n" +
+			"\n" +
 			"==="
 		);
-
-		// This will fail eventually when MDASTTextNode parsing is fixed. The parser will read the text as one
-		// all-inclusive MDASTTextNode, with text "+++\n===".
+		
 		var expected = new RootNode();
 		expected.Children.AddRange(new List<INode>
 		{
@@ -224,14 +223,12 @@ public class ThematicBreakTests
 	public void NoCharactersOtherThanSpacesOrTabsAllowedAtAtTheEndOfThematicBreak()
 	{
 		var parser = new MarkdownParser();
-
-		// This will fail eventually when MDASTTextNode parsing is fixed. Uncommenting the commented lines
-		// will fix the issue, since it will be intended that they are separate lines.
+		
 		var actual = parser.Parse(
 			"_ _ _ _ a\n" +
-			/*"\n" +*/
+			"\n" +
 			"a------\n" +
-			/*"\n" +*/
+			"\n" +
 			"---a---\n" 
 		);
 
@@ -335,14 +332,11 @@ public class ThematicBreakTests
 			"---\n" +
 			"bar"
 		);
-
-		// This will fail eventually when Setext Header functionality is added. When this fails due
-		// to this reason, simply change the output expectation to use MDASTHeadingNode.
+		
 		var expected = new RootNode();
 		expected.Children.AddRange(new List<INode>
 		{
-			new TextNode("Foo"),
-			new ThematicBreakNode(),
+			new HeadingNode(level: 2, new TextNode("Foo")),
 			new TextNode("bar"),
 		});
 
