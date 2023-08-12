@@ -29,20 +29,17 @@ public partial class SetextHeadingNodeParser : IParser
         }
 
         var headerLevel = 0;
-        var headerContent = string.Empty;
-        var headerLines = 0;
+        var headerLines = new List<string>();
         foreach (var contentLine in contentLines)
         {
             if (string.IsNullOrWhiteSpace(contentLine))
             {
                 return null;
             }
-            
-            headerLines++;
 
             if (PrimarySetextHeaderRegex().Match(contentLine).Success)
             {
-                if (headerLines == 1)
+                if (!headerLines.Any())
                 {
                     return null;
                 }
@@ -53,7 +50,7 @@ public partial class SetextHeadingNodeParser : IParser
             
             if (SecondarySetextHeaderRegex().Match(contentLine).Success)
             {
-                if (headerLines == 1)
+                if (!headerLines.Any())
                 {
                     return null;
                 }
@@ -62,11 +59,11 @@ public partial class SetextHeadingNodeParser : IParser
                 break;
             }
 
-            headerContent += contentLine;
+            headerLines.Add(contentLine);
         }
 
-        contentLines.RemoveRange(0, headerLines);
-        return new HeadingNode(headerLevel, new TextNode(headerContent));
+        contentLines.RemoveRange(0, headerLines.Count + 1);
+        return new HeadingNode(headerLevel, new TextNode(string.Join('\n', headerLines)));
     }
 
     [GeneratedRegex("=+")]

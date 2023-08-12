@@ -50,6 +50,7 @@ public class MarkdownParser
         {
             new BlankLineParser(),
             new ThematicBreakNodeParser(),
+            new SetextHeadingNodeParser(),
             new AtxHeadingNodeParser(),
             new TextNodeParser(),
         };
